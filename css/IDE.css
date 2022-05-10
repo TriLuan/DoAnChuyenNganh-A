@@ -1,0 +1,77 @@
+body{
+    margin: 0;
+    font-family: 'Work Sans', sans-serif;
+}
+html{
+    font-size: 14px;
+}
+
+/* NAVBAR START  */
+.navbar-brand--logo{
+    font-weight: bold;
+}
+.navbar-brand--logo i{
+    font-style: italic;
+}
+.navbar-brand--logo p{
+    font-size: 0.8em;
+    letter-spacing: 2px;
+    color: #00adef;
+    margin-top: -5px;
+}
+.navbar-nav--menu .nav-item .nav-link{
+    font-weight: bold;
+    transition: all .5s;
+    color: #37312c;
+}
+.navbar-nav--menu .nav-item-button button{
+    margin-left: 10px;
+    background-color: #00adef;
+    border: 2px solid #00adef;
+    border-radius: 10px;
+    color:white;
+}
+.navbar-nav--menu .nav-item-button button:hover{
+    background-color: #0088c6;
+    border: 2px solid #0088c6;
+}
+.navbar-nav--menu .nav-item:hover .nav-link{
+    color: #00adef;
+}
+.navbar-nav--menu .nav-item{
+    margin-left: 20px;
+    position: relative;
+    letter-spacing: 1px;
+}
+.navbar-nav .nav-item:after {
+    content: '';
+    display: block;
+    height: 2px;
+    background: #00adef;
+    width: 0;
+    position: absolute;
+    bottom: 0;
+    transition: all .5s;
+}
+.navbar-nav .nav-item:hover:after {
+    width: 100%; 
+}
+.navbar-nav--menu .nav-item.active:after {
+    width: 100%;
+}
+.navbar-nav--menu .active .nav-link {
+    color: #00adef !important;
+}
+@media screen and (min-width:768px) and (max-width:992px) {
+    .navbar-brand--logo h1{
+        font-size: 29px;
+    }
+    .navbar-nav--menu .nav-item .nav-link{
+        font-size: 0.9em;
+    }
+    .navbar-nav--menu .nav-item{
+        margin-left: 10px
+        ;
+    }
+}
+/* NAVBAR END  */

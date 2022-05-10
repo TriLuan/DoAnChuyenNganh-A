@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Đăng ký</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <!-- FONT  -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <!-- FONT AWESOME -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <!-- MY CSS  -->
+  <link rel="stylesheet" href="../css/index.css" />
+</head>
+
+<body class="bg-light">
+  <div class="card-header text-center bg-white">
+    <nav id="introductionNavbar" class="navbar navbar-expand-md navbar-light">
+      <div class="container">
+        <a href="../index.html" class="navbar-brand navbar-brand--logo text-center">
+          <h1 class="mb-0">
+            <i class="fa fa-book"></i>
+            <span>HappyCoding</span>
+          </h1>
+          <p>EDUCATION</p>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Menu" aria-controls="Menu"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="Menu">
+          <ul class="navbar-nav navbar-nav--menu ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">Trang chủ</a>
+            </li>
+            <li class="nav-item-button">
+              <button onclick="document.location='signin.html'">
+                Đăng nhập
+              </button>
+            </li>
+            <li class="nav-item-button">
+              <button onclick="document.location='signup.html'">
+                Đăng ký
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="container mt-5 mb-5">
+    
+    <div class="row justify-content-around">
+      <form action="" class="col-6 bg-white p-5 border border-primary rounded">
+        <h1 class="text-center text-uppercase">Đăng ký</h1>
+        <div class="form-group mt-4">
+          <label for="fullname">Họ và tên <label class="star">*</label></label>
+          <input type="text" class="form-control" name="fullname" id="fullname">
+        </div>
+        <div class="form-group">
+          <label for="phone-number">Số điện thoại</label>
+          <input type="number" class="form-control" name="phone-number" id="phone-number">
+        </div>
+        <div class="form-group">
+          <label for="role">Vai trò <label class="star">*</label></label>
+          <select class="form-control" id="role">
+            <option>Học viên</option>
+            <option>Tác giả</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="username">Email <label class="star">*</label></label>
+          <input type="email" class="form-control" name="username" id="username">
+        </div>
+        <div class="form-group">
+          <label for="password">Password <label class="star">*</label></label>
+          <input type="password" class="form-control" name="password" id="password">
+        </div>
+        <div class="form-group">
+          <label for="password-confirm">Nhập lại Password <label class="star">*</label></label>
+          <input type="password" class="form-control" name="password-confirm" id="password-confirm">
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-5">
+              <label><label class="star">(*):</label> <b>Thông tin bắt buộc</b></label>
+            </div>
+            <div class="col-7 text-right">
+              <p><b>Bạn đã có tài khoản?</b> <a href="signin.html">Đăng nhập</a></p>
+            </div>
+          </div>
+        </div>
+        <button type="button" name="btn-login" class="btn btn-primary btn-lg btn-block mt-4" onclick="Register()">
+          Đăng ký
+        </button>
+        <div class="text-center mt-3" id="notification" style="color:red; font-weight:bold; font-size:18px"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Axios JavaScript -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <!-- My JavaScript -->
+  <script src="../js/signup.js"></script>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>

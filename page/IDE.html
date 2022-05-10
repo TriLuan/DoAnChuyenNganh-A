@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Question</title>
+
+    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">  -->
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <!-- FONT  -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- FONT AWESOME -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- MY CSS  -->
+    <link rel="stylesheet" href="../css/index.css" />
+    <script src="../js/IDE.js"></script>
+  </head>
+  <body onload="page_Load()">
+    <!-- NAVBAR START  -->
+    <nav id="introductionNavbar" class="navbar navbar-expand-md navbar-light">
+      <div class="container">
+        <a
+          href="../index.html"
+          class="navbar-brand navbar-brand--logo text-center"
+        >
+          <h1 class="mb-0">
+            <i class="fa fa-book"></i>
+            <span>HappyCoding</span>
+          </h1>
+          <p>EDUCATION</p>
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#Menu"
+          aria-controls="Menu"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="Menu">
+          <ul class="navbar-nav navbar-nav--menu ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">Trang chủ</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="./practice.html">Luyện tập</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Thi</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./post-practice.html">Đăng bài</a>
+            </li>
+            <!-- <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="true"
+              >
+                PAGES
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Codes</a>
+                <a class="dropdown-item" href="#">Icons</a>
+              </div>
+            </li> -->
+            <li class="nav-item-button">
+              <button onclick="document.location='./signin.html'">
+                Đăng nhập
+              </button>
+            </li>
+            <li class="nav-item-button">
+              <button onclick="document.location='./signup.html'">
+                Đăng ký
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- NAVBAR END  -->
+    <section class="IDE-section">
+      <div class="container mt-4">
+        <h1>Đề bài: <span id="description"></span></h1>
+      </div>
+      <table align="center" width="90%">
+        <tr>
+          <td colspan="2">
+            <h2 style="margin: 0px; text-align: center">IDE ONLINE</h2>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <hr style="margin-top: 0px; margin-bottom: 5px" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Please choose a language
+            <select id="ddlLanguages" />
+          </td>
+          <td align="right">
+            <input
+              type="button"
+              id="btnRun"
+              value="Chạy thử"
+              onclick="btnRun_Click()"
+            />
+            <input
+              type="button"
+              id="btnSubmit"
+              value="Nộp bài"
+              onclick="btnSubmit_Click()"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td width="70%" rowspan="2" style="padding-top: 5px">
+            <textarea
+              id="txtSourceCode"
+              placeholder="sourceCode"
+              style="width: 100%; height: 680px"
+            ></textarea>
+          </td>
+          <td width="30%" style="padding-top: 5px;background-color: #232432;color:white">
+            <div style="width: 99%; height: 340px">
+              <h3>Test Case</h3>
+              <div id="txtTestCase">
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div  style="width: 100%; height: 340px;background-color: #232432;color:white">
+              <h3>Console</h3>
+              <span id="txtConsole"></span>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </section>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
+
+<!-- apply CodeMirror for txtSourceCode -->
+<script src="../IDE/codemirror/lib/codemirror.js"></script>
+<script src="../IDE/codemirror/mode/clike/clike.js"></script>
+<link href="../IDE/codemirror/lib/codemirror.css" rel="stylesheet" />
+<link href="../IDE/codemirror/theme/eclipse.css" rel="stylesheet" />
+<style>
+  .CodeMirror {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+  }
+</style>
+<script type="text/javascript">
+  var config = {
+    mode: "text/x-c++src",
+    theme: "eclipse",
+    lineNumbers: true,
+    lineWrapping: true,
+  };
+  var txtSourceCode = document.getElementById("txtSourceCode");
+  var codeMirror = CodeMirror.fromTextArea(txtSourceCode, config);
+  codeMirror.setSize(txtSourceCode.style.width, txtSourceCode.style.height);
+</script>

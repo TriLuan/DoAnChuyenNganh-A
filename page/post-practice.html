@@ -1,0 +1,191 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Đăng bài</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <!-- FONT  -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- FONT AWESOME -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <!-- MY CSS  -->
+    <link rel="stylesheet" href="../css/index.css" />
+    <script src="../js/post-practice.js"></script>
+  </head>
+
+  <body>
+    <!-- NAVBAR START  -->
+    <nav id="introductionNavbar" class="navbar navbar-expand-md navbar-light">
+      <div class="container">
+        <a
+          href="../index.html"
+          class="navbar-brand navbar-brand--logo text-center"
+        >
+          <h1 class="mb-0">
+            <i class="fa fa-book"></i>
+            <span>HappyCoding</span>
+          </h1>
+          <p>EDUCATION</p>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#Menu"
+          aria-controls="Menu"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="Menu">
+          <ul class="navbar-nav navbar-nav--menu ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./practice.html">Luyện tập</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="">Thi</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="./post-practice.html">Đăng bài</a>
+            </li>
+            <!-- <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="true"
+                >
+                  PAGES
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Codes</a>
+                  <a class="dropdown-item" href="#">Icons</a>
+                </div>
+              </li> -->
+              <li class="nav-item-button">
+                <button onclick="document.location='./signin.html'">
+                  Đăng nhập
+                </button>
+              </li>
+              <li class="nav-item-button">
+                <button onclick="document.location='./signup.html'">
+                  Đăng ký
+                </button>
+              </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+    <!-- NAVBAR END  -->
+    <!-- POST-PRACTICE START -->
+    <section class="post-practice">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-6 mx-auto">
+            <h3 class="display-4 text-center mt-5">Nhập thông tin bài</h3>
+            <div class="form-group">
+              <label for="">Tiêu đề: </label>
+              <input type="text" class="form-control" id="txtTitle" />
+            </div>
+            <div class="form-group">
+              <label for="">Mô tả: </label>
+              <input type="text" class="form-control" id="txtDescription"/>
+            </div>
+
+            <div class="form-group">
+              <label for="">Chủ đề:</label>
+              <select name="topic" id="topic" class="form-control">
+                <option>Cơ bản</option>
+                <option>Nâng cao</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="">Cấp độ:</label>
+              <select name="level" id="level" class="form-control">
+                <option>Dễ</option>
+                <option>Trung bình</option>
+                <option>Khó</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="">Số lượng test case ví dụ:</label>
+              <select name="numberSampleTestCase" id="numberSampleTestCase" class="form-control" onchange="renderSampleTestCase(this)">
+                <option>0</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+              </select>
+            </div>
+            <div id="sampleTestCase">
+            </div>
+            <div class="form-group">
+              <label for="">Số lượng test case ẩn:</label>
+              <select name="numberTestCase" id="numberTestCase" class="form-control" onchange="renderTestCase(this)">
+                <option>0</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+              </select>
+            </div>
+            <div id="testCase">
+            </div>
+            <div class="form-group text-center">
+              <button onclick="btnSubmit_Question()" class="btn btn-success">Xác Nhận</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- POST-PRACTICE END -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

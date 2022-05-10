@@ -1,0 +1,162 @@
+body{
+    margin: 0;
+    font-family: 'Work Sans', sans-serif;
+}
+html{
+    font-size: 14px;
+}
+
+/* NAVBAR START  */
+.navbar-brand--logo{
+    font-weight: bold;
+}
+.navbar-brand--logo i{
+    font-style: italic;
+}
+.navbar-brand--logo p{
+    font-size: 0.8em;
+    letter-spacing: 2px;
+    color: #00adef;
+    margin-top: -5px;
+}
+.navbar-nav--menu .nav-item .nav-link{
+    font-weight: bold;
+    transition: all .5s;
+    color: #37312c;
+}
+.navbar-nav--menu .nav-item-button button{
+    margin-left: 10px;
+    background-color: #00adef;
+    border: 2px solid #00adef;
+    border-radius: 10px;
+    color:white;
+}
+.navbar-nav--menu .nav-item-button button:hover{
+    background-color: #0088c6;
+    border: 2px solid #0088c6;
+}
+.navbar-nav--menu .nav-item:hover .nav-link{
+    color: #00adef;
+}
+.navbar-nav--menu .nav-item{
+    margin-left: 20px;
+    position: relative;
+    letter-spacing: 1px;
+}
+.navbar-nav .nav-item:after {
+    content: '';
+    display: block;
+    height: 2px;
+    background: #00adef;
+    width: 0;
+    position: absolute;
+    bottom: 0;
+    transition: all .5s;
+}
+.navbar-nav .nav-item:hover:after {
+    width: 100%; 
+}
+.navbar-nav--menu .nav-item.active:after {
+    width: 100%;
+}
+.navbar-nav--menu .active .nav-link {
+    color: #00adef !important;
+}
+@media screen and (min-width:768px) and (max-width:992px) {
+    .navbar-brand--logo h1{
+        font-size: 29px;
+    }
+    .navbar-nav--menu .nav-item .nav-link{
+        font-size: 0.9em;
+    }
+    .navbar-nav--menu .nav-item{
+        margin-left: 10px
+        ;
+    }
+}
+/* NAVBAR END  */
+
+/* Practice START */
+.practice-section{
+    padding: 3rem 15px;
+    background-color: #f1f1f1;
+}
+.practice-title h1{
+    color: #00adef;
+    font-weight: bold;
+    font-size: 40px;
+    letter-spacing: 0.5px;
+    margin-top: 80px;
+}
+.practice-title span{
+    font-size: 17px;
+    letter-spacing: 4px;
+    font-weight: 600;
+    color: black;
+}
+.practice-title hr{
+    width: 70px;
+    height: 1.5px;
+    background-color: black;
+    margin: auto;
+}
+.practice-img img{
+    border:solid #dedede;
+}
+.practice-section .news-text h2{
+    font-size: 1.4em;
+    letter-spacing: 1px;
+    font-weight: bold;
+    color: black;
+    transition: all 0.5s;
+}
+.practice-section .news-text span{
+    font-size: 1em;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #0088c6;
+}
+.practice-section .news-text p{
+    line-height: 2em;
+    color: #999;
+    font-size: 1em;
+}
+.practice-section .news-text , .news-img{
+    margin-bottom: 40px;
+}
+.practice-text h2:hover{
+    color: #0088c6;
+}
+.practice-row{
+    padding: 30px;
+}
+#questions button{
+    padding: 7px 15px;
+    margin-left: 10px;
+    background-color: #00adef;
+    border: 2px solid #00adef;
+    border-radius: 12px;
+    color:white;
+}
+#questions button:hover{
+    background-color: #0088c6;
+    border: 2px solid #0088c6;
+}
+/* Practice END */
+
+/* POST-Practice START */
+.post-practice{
+    background-color: #f1f1f1;
+}
+/* POST-Practice END */
+
+/* Sign up star red*/
+.star{
+    color: red;
+    font-weight: bold;
+}
+/* IDE */
+.IDE-section{
+    padding: 3rem 15px;
+    background-color: #f1f1f1;
+}
