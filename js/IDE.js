@@ -5,25 +5,97 @@ function page_Load() {
   getLanguages();
   getQuestion();
 }
-
+var result=0;
 function btnRun_Click() {
   disabledButton_Run(true);
-  var param = {
-    run_spec: {
-      language_id: document.getElementById("ddlLanguages").value,
-      sourcecode: codeMirror.getValue(),
-      input: document.getElementById("txtInput").value
-    }
-  };
-  submitCode(param);
+  content = "";
+  runTestingSampleTestCase();
+  clearConsole();
 }
 
-function submitCode(param) {
+// function submitCode(param) {
+//   axios.post(URL + "runs", param).then((response) => {
+//     var result = response.data;
+//     renderOutput(result);
+//     disabledButton_Run(false);
+//   });
+// }
+
+var runTestingSampleTestCase = function () {
+  axios
+    .get("http://103.253.147.116:4000/testcases/getlist")
+    .then((response) => {
+      var testCaseList = response.data;
+      testCases = testCaseList.filter(function (testCaseList) {
+        return testCaseList.Question_id === questionID;
+      });
+      testingProcess(testCases);
+    });
+};
+
+var count = 0;
+
+
+function testingProcess(testCases) {
+  for (let i = 0; i < testCases.length; i++) {
+    var param = {
+      run_spec: {
+        language_id: document.getElementById("ddlLanguages").value,
+        sourcecode: codeMirror.getValue(),
+        input: testCases[i].Input,
+      },
+    };
+    submitCode_Testcase(param, testCases, i);
+  }
+  count = 0;
+}
+
+function submitCode_Testcase(param, testCases, i) {
   axios.post(URL + "runs", param).then((response) => {
     var result = response.data;
-    renderOutput(result);
+    console.log(result);
+    checkTestCase(testCases, result, i);
+    console.log("Pass: " + count + "/" + testCases.length);
+    result=count;
     disabledButton_Run(false);
   });
+}
+
+function checkTestCase(testCases, result, i) {
+  if (testCases[i].Output == result.stdout) {
+    console.log("pass");
+    handleTrueResult(testCases, result, i);
+    count++;
+  } else if (result.outcome != 15) {
+    renderError(result);
+  } else if (result.outcome === 15) {
+    handleFalseResult(testCases, result, i);
+    console.log("fail");
+    console.log("Expected: " + testCases[i].Output);
+    console.log("Result: " + result.stdout);
+  }
+}
+var content = "";
+function handleTrueResult(testCases, result, i) {
+  content += `
+  <h4>Kiểm thử `+ (Number(i) + 1) + ` <i class="fa-solid fa-circle-check"></i></h4>
+  <h5>Input: `+ testCases[i].Input + ` </h5>
+  <h5>Output: `+ testCases[i].Output + `</h5>
+  <h5>Output thực tế: `+ result.stdout + `</h5>
+                  `;
+  document.getElementById("txtTestCase").innerHTML = content;
+  console.log(content);
+}
+
+function handleFalseResult(testCases, result, i) {
+  content += `
+  <h4>Kiểm thử `+ (Number(i) + 1) + ` <i class="fa-solid fa-triangle-exclamation"></i></i></h4>
+  <h5>Input: `+ testCases[i].Input + ` </h5>
+  <h5>Output: `+ testCases[i].Output + `</h5>
+  <h5>Output thực tế: `+ result.stdout + `</h5>
+                  `;
+  document.getElementById("txtTestCase").innerHTML = content;
+  console.log(content);
 }
 
 function renderOutput(result) {
@@ -48,12 +120,37 @@ function renderOutput(result) {
   document.getElementById("txtOutput").value = output;
 }
 
+function disabledButton_Run(isDisabled) {
+  if (isDisabled) {
+    document.getElementById("btnRun").disabled = true;
+    document.getElementById("btnRun").value = "  WAITING  ";
+  } else {
+    document.getElementById("btnRun").disabled = false;
+    document.getElementById("btnRun").value = "Chạy thử";
+  }
+}
+
+// SUBMIT Start
+
 function btnSubmit_Click() {
   disabledButton_Submit(true);
   content = "";
+  runTestingSampleTestCase();
   runTesting();
   clearConsole();
 }
+
+var runTestingTestCase = function () {
+  axios
+    .get("http://103.253.147.116:4000/testcases/getlist")
+    .then((response) => {
+      var testCaseList = response.data;
+      testCases = testCaseList.filter(function (testCaseList) {
+        return testCaseList.Question_id === questionID;
+      });
+      testingProcess(testCases);
+    });
+};
 
 /* business methods */
 function getLanguages() {
@@ -98,69 +195,7 @@ var getQuestion = function () {
   }
 };
 
-var runTesting = function () {
-  axios
-    .get("http://103.253.147.116:4000/testcases/getlist")
-    .then((response) => {
-      var testCaseList = response.data;
-      testCases = testCaseList.filter(function (testCaseList) {
-        return testCaseList.Question_id === questionID;
-      });
-      console.log(testCases);
-      testingProcess(testCases);
-    });
-};
 
-var count = 0;
-
-function testingProcess(testCases) {
-  for (let i = 0; i < testCases.length; i++) {
-    var param = {
-      run_spec: {
-        language_id: document.getElementById("ddlLanguages").value,
-        sourcecode: codeMirror.getValue(),
-        input: testCases[i].Input,
-      },
-    };
-    submitCode_Testcase(param, testCases, i);
-  }
-  count = 0;
-}
-
-function submitCode_Testcase(param, testCases, i) {
-  axios.post(URL + "runs", param).then((response) => {
-    var result = response.data;
-    console.log(result);
-    checkTestCase(testCases, result, i);
-    console.log("Pass: " + count + "/" + testCases.length);
-    disabledButton_Submit(false);
-  });
-}
-
-function checkTestCase(testCases, result, i) {
-  if (testCases[i].Output == result.stdout) {
-    console.log("pass");
-    handleTestCase(testCases, result, i);
-    count++;
-  } else if (result.outcome != 15) {
-    renderError(result);
-  } else if (result.outcome === 15) {
-    console.log("fail");
-    console.log("Expected: " + testCases[i].Output);
-    console.log("Result: " + result.stdout);
-  }
-}
-var content = "";
-function handleTestCase(testCases, result, i) {
-  content += `
-  <h4>Kiểm thử `+ (Number(i) + 1) + ` <i class="fa-solid fa-circle-check"></i></h4>
-  <h5>Input: `+ testCases[i].Input + ` </h5>
-  <h5>Output: `+ testCases[i].Output + `</h5>
-  <h5>Output thực tế: `+ result.stdout + `</h5>
-                  `;
-  document.getElementById("txtTestCase").innerHTML = content;
-  console.log(content);
-}
 
 /* helper methods */
 function renderLanguages(languages) {
@@ -193,15 +228,7 @@ function renderError(result) {
   clearTestCase()
 }
 
-function disabledButton_Run(isDisabled) {
-  if (isDisabled) {
-    document.getElementById("btnRun").disabled = true;
-    document.getElementById("btnRun").value = "  WAITING  ";
-  } else {
-    document.getElementById("btnRun").disabled = false;
-    document.getElementById("btnRun").value = "Chạy thử";
-  }
-}
+
 
 function disabledButton_Submit(isDisabled) {
   if (isDisabled) {
@@ -209,7 +236,7 @@ function disabledButton_Submit(isDisabled) {
     document.getElementById("btnSubmit").value = "  WAITING  ";
   } else {
     document.getElementById("btnSubmit").disabled = false;
-    document.getElementById("btnSubmit").value = "Chạy thử";
+    document.getElementById("btnSubmit").value = "Nộp bài";
   }
 }
 
