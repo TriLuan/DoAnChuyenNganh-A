@@ -1,4 +1,4 @@
-var URI = "http://103.253.147.116:4000/"
+var URI = "http://103.253.147.116:4000/";
 
 function renderSampleTestCase(obj) {
   var value = Number(obj.value);
@@ -9,12 +9,12 @@ function renderSampleTestCase(obj) {
       <label>Test case ví dụ ` +
       (Number(i) + 1) +
       `</label>
-      <input type="text" class="form-control" id="txtInput" placeholder="Input"/>
-      <input type="text" class="form-control" id="txtOutput" placeholder="Output"/>
+      <input type="text" class="form-control" id="txtSampleTestCaseInput`+i+`" placeholder="Input"/>
+      <input type="text" class="form-control" id="txtSampleTestCaseOutput`+i+`" placeholder="Output"/>
                   `;
     console.log(i);
   }
-  console.log(typeof (value));
+  console.log(typeof value);
   console.log(content);
   document.getElementById("sampleTestCase").innerHTML = content;
 }
@@ -28,12 +28,12 @@ function renderTestCase(obj) {
         <label>Test case ẩn ` +
       (Number(i) + 1) +
       `</label>
-        <input type="text" class="form-control" id="txtInput" placeholder="Input"/>
-        <input type="text" class="form-control" id="txtOutput" placeholder="Output"/>
+        <input type="text" class="form-control" id="txtTestCaseInput`+i+`" placeholder="Input"/>
+        <input type="text" class="form-control" id="txtTestCaseOutput`+i+`" placeholder="Output"/>
                     `;
     console.log(i);
   }
-  console.log(typeof (value));
+  console.log(typeof value);
   console.log(content);
   document.getElementById("testCase").innerHTML = content;
 }
@@ -63,17 +63,16 @@ function runPostQuestion(Question_id) {
   var topic = String(document.getElementById("topic").value);
   var level = String(document.getElementById("level").value);
   var today = new Date();
-  var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+  var date =
+    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
   var param = {
-    "Question_id": Question_id,
-    "Title": title,
-    "Description": description,
-    "CreateDate": date,
-    "Topic": topic,
-    "Level": level,
-    "Author_id": 1
+    Question_id: Question_id,
+    Title: title,
+    Description: description,
+    CreateDate: date,
+    Topic: topic,
+    Level: level,
+    Author_id: 1,
   };
   console.log(param);
 }
-
-
