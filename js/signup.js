@@ -9,13 +9,7 @@ var flag_re_password = 1;
 function Register() {
     Checking();
     if (flag_fullName == 0 && flag_phoneNumber == 0 && flag_email == 0 && flag_password == 0 && flag_re_password == 0) {
-        var role = String(document.getElementById("role").value);
-        if (role == "Học viên") {
-            runSignUpStudent();
-        }
-        else {
-            runSignUpAuthor();
-        }
+        runSignUp();
     }
 }
 
@@ -56,6 +50,7 @@ function checkPhoneNumber() {
     }
     else {
         flag_phoneNumber = 0;
+        document.getElementById('phone-number').style.backgroundColor = 'white';
     }
 }
 
@@ -147,7 +142,7 @@ function postData(dataName) {
     submitData(dataName, param);
 }
 
-function runSignUpStudent() {
+function runSignUp() {
     axios.get(URI + "students/getlist").then((response) => {
         var data = response.data;
         const array = [];
@@ -179,47 +174,14 @@ function runSignUpStudent() {
                     }
                     if (status == 0) {
                         document.getElementById('username').style.backgroundColor = 'white';
-                        postData("students");
-                    }
-                });
-            }
-        }
-    });
-}
+                        var role = String(document.getElementById("role").value);
+                        if (role == "Học viên") {
+                            postData("students");
+                        }
+                        else {
+                            postData("authors");
+                        }
 
-function runSignUpAuthor() {
-    axios.get(URI + "authors/getlist").then((response) => {
-        var data = response.data;
-        const array = [];
-        var email = String(document.getElementById('username').value.trim());
-        var status = 1;
-        renderEmail(data, array);
-        for (var i = 0; i < array.length; i++) {
-            if (email == array[i]) {
-                document.getElementById('username').style.backgroundColor = 'yellow';
-                document.getElementById('notification').innerHTML += "Email này đã tồn tại";
-                break;
-            }
-            else if (i == array.length - 1) {
-                axios.get(URI + "students/getlist").then((response) => {
-                    var data = response.data;
-                    const array = [];
-                    var email = String(document.getElementById('username').value.trim());
-                    var status = 1;
-                    renderEmail(data, array);
-                    for (var i = 0; i < array.length; i++) {
-                        if (email == array[i]) {
-                            document.getElementById('username').style.backgroundColor = 'yellow';
-                            document.getElementById('notification').innerHTML += "Email này đã tồn tại";
-                            break;
-                        }
-                        else if (i == array.length - 1) {
-                            status = 0;
-                        }
-                    }
-                    if (status == 0) {
-                        document.getElementById('username').style.backgroundColor = 'white';
-                        postData("authors");
                     }
                 });
             }
