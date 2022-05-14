@@ -112,7 +112,7 @@ function runPostTestCase(Question_id) {
 function submitTestCase(param) {
   axios.post(URI + 'testcases/add', param).then((response) => {
     var result = response.data;
-    clearForm();
+    location.reload();
     console.log("Thành công");
   });
 }
@@ -138,11 +138,11 @@ function submitSampleTestCase(param) {
     var result = response.data;
   });
 }
-function clearForm() {
-  document.getElementById("txtTitle").value = "";
-  document.getElementById("txtDescription").value = "";
-  document.getElementById("topic").value = "Cơ bản";
-  document.getElementById("level").value = "Dễ";
-  document.getElementById("numberSampleTestCase").value = "0";
-  document.getElementById("numberTestCase").value = "0";
-}
+// function clearForm() {
+//   document.getElementById("txtTitle").value = "";
+//   document.getElementById("txtDescription").value = "";
+//   document.getElementById("topic").value = "Cơ bản";
+//   document.getElementById("level").value = "Dễ";
+//   document.querySelector("numberSampleTestCase").selected;
+//   document.querySelector("numberTestCase").selected  =true;
+// }
