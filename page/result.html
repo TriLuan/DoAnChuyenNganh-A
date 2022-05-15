@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Kết quả</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- FONT  -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <!-- MY CSS  -->
+    <link rel="stylesheet" href="../css/index.css" />
+
+</head>
+
+<body class="bg-light" onload="page_Load()">
+    <div class="card-header bg-white">
+        <!-- NAVBAR START  -->
+        <nav id="introductionNavbar" class="navbar navbar-expand-md navbar-light">
+            <div class="container">
+                <a href="../index.html" class="navbar-brand navbar-brand--logo text-center">
+                    <h1 class="mb-0">
+                        <i class="fa fa-book"></i>
+                        <span>HappyCoding</span>
+                    </h1>
+                    <p>EDUCATION</p>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Menu"
+                    aria-controls="Menu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="Menu">
+                    <ul class="navbar-nav navbar-nav--menu ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html">Trang chủ</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="./practice.html">Luyện tập</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Thi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./post-practice.html">Đăng bài</a>
+                        </li>
+                        <!-- <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="true"
+                >
+                  PAGES
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Codes</a>
+                  <a class="dropdown-item" href="#">Icons</a>
+                </div>
+              </li> -->
+                        <li class="nav-item-button">
+                            <button onclick="document.location='./signin.html'">
+                                Đăng nhập
+                            </button>
+                        </li>
+                        <li class="nav-item-button">
+                            <button onclick="document.location='./signup.html'">
+                                Đăng ký
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- NAVBAR END  -->
+    </div>
+    <div class="container mt-5">
+        <div class="row justify-content-around">
+            <form action="" class="col-8 bg-white p-5 border border-primary rounded">
+                <h1 class="text-center text-uppercase">Kết quả</h1>
+                <div id="result"></div>
+                <button type="button" name="btn-register" id="btn-register" class="btn btn-primary btn-lg btn-block mt-5" onclick="document.location = './practice.html';">
+                    Tiếp tục
+                  </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Axios JavaScript -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!-- My JavaScript -->
+    <script src="../js/result.js"></script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>

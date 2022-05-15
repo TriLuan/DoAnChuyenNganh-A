@@ -9,8 +9,6 @@ var getData=function(dataName){
   });
 }
 
-
-
 var renderQuestions = function () {
   var content = "";
   for (let i = 0; i < questionList.length; i++) {

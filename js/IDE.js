@@ -5,7 +5,34 @@ function page_Load() {
   getLanguages();
   getQuestion();
 }
-var result=0;
+
+/* Start Business Methods */
+function getLanguages() {
+  axios.get(URL + "languages").then((response) => {
+    var languages = response.data;
+    renderLanguages(languages);
+  });
+}
+
+function clearTestCase() {
+  document.getElementById("txtTestCase").innerHTML = "";
+}
+function clearConsole() {
+  document.getElementById("txtConsole").innerHTML = "";
+}
+
+var getQuestion = function () {
+  if (sessionStorage.description) {
+    document.getElementById("description").innerHTML =
+      sessionStorage.getItem("description");
+    questionID = Number(sessionStorage.getItem("ID"));
+  } else {
+    console.log("sessionStorage.description = null");
+  }
+};
+/* End Business Methods */
+
+/* Start Sample Test Cases */
 function btnRun_Click() {
   disabledButton_Run(true);
   content = "";
@@ -13,68 +40,58 @@ function btnRun_Click() {
   clearConsole();
 }
 
-// function submitCode(param) {
-//   axios.post(URL + "runs", param).then((response) => {
-//     var result = response.data;
-//     renderOutput(result);
-//     disabledButton_Run(false);
-//   });
-// }
-
 var runTestingSampleTestCase = function () {
   axios
-    .get("http://103.253.147.116:4000/testcases/getlist")
+    .get("http://103.253.147.116:4000/sampletestcases/getlist")
     .then((response) => {
-      var testCaseList = response.data;
-      testCases = testCaseList.filter(function (testCaseList) {
-        return testCaseList.Question_id === questionID;
+      var sampleTestCaseList = response.data;
+      sampleTestCases = sampleTestCaseList.filter(function (sampleTestCaseList) {
+        return sampleTestCaseList.Question_id === questionID;
       });
-      testingProcess(testCases);
+      sampleTestingProcess(sampleTestCases);
     });
 };
 
 var count = 0;
-
-
-function testingProcess(testCases) {
-  for (let i = 0; i < testCases.length; i++) {
+function sampleTestingProcess(sampleTestCases) {
+  for (let i = 0; i < sampleTestCases.length; i++) {
     var param = {
       run_spec: {
         language_id: document.getElementById("ddlLanguages").value,
         sourcecode: codeMirror.getValue(),
-        input: testCases[i].Input,
+        input: sampleTestCases[i].Input,
       },
     };
-    submitCode_Testcase(param, testCases, i);
+    submitCode_SampleTestCase(param, sampleTestCases, i);
   }
   count = 0;
 }
 
-function submitCode_Testcase(param, testCases, i) {
+function submitCode_SampleTestCase(param, sampleTestCases, i) {
   axios.post(URL + "runs", param).then((response) => {
     var result = response.data;
     console.log(result);
-    checkTestCase(testCases, result, i);
-    console.log("Pass: " + count + "/" + testCases.length);
-    result=count;
+    checkSampleTestCase(sampleTestCases, result, i);
+    console.log("Pass: " + count + "/" + sampleTestCases.length);
     disabledButton_Run(false);
   });
 }
 
-function checkTestCase(testCases, result, i) {
-  if (testCases[i].Output == result.stdout) {
+function checkSampleTestCase(sampleTestCases, result, i) {
+  if (sampleTestCases[i].Output == result.stdout) {
     console.log("pass");
-    handleTrueResult(testCases, result, i);
+    handleTrueResult(sampleTestCases, result, i);
     count++;
   } else if (result.outcome != 15) {
     renderError(result);
   } else if (result.outcome === 15) {
-    handleFalseResult(testCases, result, i);
+    handleFalseResult(sampleTestCases, result, i);
     console.log("fail");
-    console.log("Expected: " + testCases[i].Output);
+    console.log("Expected: " + sampleTestCases[i].Output);
     console.log("Result: " + result.stdout);
   }
 }
+
 var content = "";
 function handleTrueResult(testCases, result, i) {
   content += `
@@ -98,28 +115,6 @@ function handleFalseResult(testCases, result, i) {
   console.log(content);
 }
 
-function renderOutput(result) {
-  var output = "";
-  if (result.outcome === 11) {
-    output = result.cmpinfo;
-  } else if (result.outcome === 12) {
-    output = result.stderr;
-  } else if (result.outcome === 13) {
-    output = "Time limit exceeded";
-  } else if (result.outcome === 15) {
-    output = result.stdout;
-  } else if (result.outcome === 17) {
-    output = "Memory limit exceeded";
-  } else if (result.outcome === 19) {
-    output = "Illegal system call";
-  } else if (result.outcome === 20) {
-    output = "Internal error";
-  } else if (result.outcome === 21) {
-    output = "Server overload";
-  }
-  document.getElementById("txtOutput").value = output;
-}
-
 function disabledButton_Run(isDisabled) {
   if (isDisabled) {
     document.getElementById("btnRun").disabled = true;
@@ -129,15 +124,12 @@ function disabledButton_Run(isDisabled) {
     document.getElementById("btnRun").value = "Chạy thử";
   }
 }
+/* End Sample Test Cases */
 
-// SUBMIT Start
-
+/* Start Test Cases */
 function btnSubmit_Click() {
   disabledButton_Submit(true);
-  content = "";
-  runTestingSampleTestCase();
-  runTesting();
-  clearConsole();
+  runTestingTestCase();
 }
 
 var runTestingTestCase = function () {
@@ -152,52 +144,52 @@ var runTestingTestCase = function () {
     });
 };
 
-/* business methods */
-function getLanguages() {
-  axios.get(URL + "languages").then((response) => {
-    var languages = response.data;
-    renderLanguages(languages);
+function testingProcess(testCases) {
+  sessionStorage.setItem("Pass", 0);
+  sessionStorage.setItem("Total_TestCases", testCases.length);
+  for (let i = 0; i < testCases.length; i++) {
+    var param = {
+      run_spec: {
+        language_id: document.getElementById("ddlLanguages").value,
+        sourcecode: codeMirror.getValue(),
+        input: testCases[i].Input,
+      },
+    };
+    submitCode_TestCase(param, testCases, i);
+  }
+}
+
+function submitCode_TestCase(param, testCases, i) {
+  axios.post(URL + "runs", param).then((response) => {
+    var result = response.data;
+    console.log(result);
+    checkTestCase(testCases, result, i);
+    if (i == testCases.length -1) {
+      document.location = "result.html";
+      disabledButton_Submit(false);
+    }
   });
 }
 
-function clearTestCase() {
-  document.getElementById("txtTestCase").innerHTML = "";
+function checkTestCase(testCases, result, i) {
+  if (testCases[i].Output == result.stdout) {
+    console.log("pass");
+    sessionStorage.setItem("Pass", (Number(sessionStorage.getItem("Pass")) + 1));
+  } 
 }
-function clearConsole() {
-  document.getElementById("txtConsole").innerHTML = "";
-}
-// var Output="";
-// function submitCode(param,OP) {
-//   axios.post(URI + "runs", param).then((response) => {
-//     var result = response.data;
-//     Output=renderOutput(result);
-//     console.log(Output);
-//   });
-//   console.log(Output);
-//   console.log(OP);
-//   if (Number(Output) === Number(OP)){
-//     console.log("renderOutput True");
-//     return true;
-//   }
-//   else{
-//     console.log("renderOutput False");
-//   return false;
-//   }
-// }
 
-var getQuestion = function () {
-  if (sessionStorage.description) {
-    document.getElementById("description").innerHTML =
-      sessionStorage.getItem("description");
-    questionID = Number(sessionStorage.getItem("ID"));
+function disabledButton_Submit(isDisabled) {
+  if (isDisabled) {
+    document.getElementById("btnSubmit").disabled = true;
+    document.getElementById("btnSubmit").value = "  WAITING  ";
   } else {
-    console.log("sessionStorage.description = null");
+    document.getElementById("btnSubmit").disabled = false;
+    document.getElementById("btnSubmit").value = "Nộp bài";
   }
-};
+}
+/* End Test Cases */
 
-
-
-/* helper methods */
+/* Start Helper Methods */
 function renderLanguages(languages) {
   for (var language of languages) {
     var opt = document.createElement("option");
@@ -225,20 +217,9 @@ function renderError(result) {
     output = "Server overload";
   }
   document.getElementById("txtConsole").innerHTML = output;
-  clearTestCase()
+  clearTestCase();
 }
-
-
-
-function disabledButton_Submit(isDisabled) {
-  if (isDisabled) {
-    document.getElementById("btnSubmit").disabled = true;
-    document.getElementById("btnSubmit").value = "  WAITING  ";
-  } else {
-    document.getElementById("btnSubmit").disabled = false;
-    document.getElementById("btnSubmit").value = "Nộp bài";
-  }
-}
+/* End Helper Methods */
 
 // Code test IDE
 /*
