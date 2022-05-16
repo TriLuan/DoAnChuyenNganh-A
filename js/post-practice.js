@@ -86,30 +86,6 @@ function submitQuestion(param, Question_id) {
   axios.post(URI + 'questions/add', param).then((response) => {
     var result = response.data;
     runPostSampleTestCase(Question_id);
-    runPostTestCase(Question_id);
-  });
-}
-
-function runPostTestCase(Question_id) {
-  var totalTestCase = parseInt(document.getElementById("numberTestCase").value);
-  for (var i = 0; i < totalTestCase; i++) {
-    var inputId = String("txtTestCaseInput" + i);
-    var outputId = String("txtTestCaseOutput" + i);
-    var input = String(document.getElementById(inputId).value.trim());
-    var output = String(document.getElementById(outputId).value.trim());
-    var param = {
-      Question_id: Question_id,
-      Input: input,
-      Output: output,
-    };
-    submitTestCase(param);
-  }
-}
-
-function submitTestCase(param) {
-  axios.post(URI + 'testcases/add', param).then((response) => {
-    var result = response.data;
-    updateTotalQuesion();
   });
 }
 
@@ -125,13 +101,41 @@ function runPostSampleTestCase(Question_id) {
       Input: input,
       Output: output,
     };
-    submitSampleTestCase(param);
+    submitSampleTestCase(param, i, totalSampleTestCase, Question_id);
   }
 }
 
-function submitSampleTestCase(param) {
+function submitSampleTestCase(param, i, totalSampleTestCase, Question_id) {
   axios.post(URI + 'sampletestcases/add', param).then((response) => {
     var result = response.data;
+    if (i == totalSampleTestCase - 1) {
+      runPostTestCase(Question_id);
+    }
+  });
+}
+
+function runPostTestCase(Question_id) {
+  var totalTestCase = parseInt(document.getElementById("numberTestCase").value);
+  for (var i = 0; i < totalTestCase; i++) {
+    var inputId = String("txtTestCaseInput" + i);
+    var outputId = String("txtTestCaseOutput" + i);
+    var input = String(document.getElementById(inputId).value.trim());
+    var output = String(document.getElementById(outputId).value.trim());
+    var param = {
+      Question_id: Question_id,
+      Input: input,
+      Output: output,
+    };
+    submitTestCase(param, i, totalTestCase);
+  }
+}
+
+function submitTestCase(param, i, totalTestCase) {
+  axios.post(URI + 'testcases/add', param).then((response) => {
+    var result = response.data;
+    if (i == totalTestCase - 1) {
+      updateTotalQuesion();
+    }
   });
 }
 
@@ -158,8 +162,6 @@ function renderTotalQuesion(data) {
 function putTotalQuestion(param) {
   axios.put(URI + "authors/puttotalquestion", param).then((response) => {
     var result = response.data;
-    console.log(result);
-    alert("Đăng câu hỏi thành công");
     location.reload();
   });
 }
