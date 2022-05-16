@@ -1,126 +1,91 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Trang chủ</title>
 
-    <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-    <!-- FONT  -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <!-- FONT AWESOME -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    />
-    <!-- MY CSS  -->
-    <link rel="stylesheet" href="./css/index.css" />
-    
-  </head>
+<head>
+  <title>Đăng nhập</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <body onload="getData('questions');">
-    
-    <!-- NAVBAR START  -->
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+  <!-- FONT  -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <!-- FONT AWESOME -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <!-- MY CSS  -->
+  <link rel="stylesheet" href="./css/index.css" />
+</head>
+
+<body class="bg-light">
+  
+  <div class="card-header text-center bg-white">
     <nav id="introductionNavbar" class="navbar navbar-expand-md navbar-light">
       <div class="container">
-        <a
-          href="index.html"
-          class="navbar-brand navbar-brand--logo text-center"
-        >
+        <div class="navbar-brand navbar-brand--logo text-center">
           <h1 class="mb-0">
             <i class="fa fa-book"></i>
             <span>HappyCoding</span>
           </h1>
           <p>EDUCATION</p>
-        </a>
+        </div>
 
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#Menu"
-          aria-controls="Menu"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Menu" aria-controls="Menu"
+          aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="Menu">
+        <!-- <div class="collapse navbar-collapse" id="Menu">
           <ul class="navbar-nav navbar-nav--menu ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="index.html">Trang chủ</a>
-            </li>
             <li class="nav-item">
-              <a class="nav-link" href="./page/practice.html">Luyện tập</a>
+              <a class="nav-link" href="../index.html">Trang chủ</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="">Thi</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="./page/post-practice.html">Đăng bài</a>
-            </li>
-            <!-- <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="true"
-              >
-                PAGES
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Codes</a>
-                <a class="dropdown-item" href="#">Icons</a>
-              </div>
-            </li> -->
             <li class="nav-item-button">
-              <button onclick="document.location='./page/signin.html'">
+              <button onclick="document.location='signin.html'">
                 Đăng nhập
               </button>
             </li>
             <li class="nav-item-button">
-              <button onclick="document.location='./page/signup.html'">
+              <button onclick="document.location='signup.html'">
                 Đăng ký
               </button>
             </li>
           </ul>
-        </div>
+        </div> -->
       </div>
     </nav>
-    <!-- NAVBAR END  -->
-    <!-- PRACTICE START -->
-    <section class="practice-section">
-      <section class="container">
-        <div class="row">
-          <div class="col practice-title text-center">
-            <h1>Danh sách bài luyện tập</h1>
-            <hr class="mx-auto mt-3 mb-3 mb-sm-5 w-25" />
-          </div>
+  </div>
+  <div class="container mt-5">
+    <div class="row justify-content-around">
+      <form action="" class="col-6 bg-white p-5 border border-primary rounded">
+        <h1 class="text-center text-uppercase">Đăng nhập</h1>
+        <div class="form-group mt-4">
+          <label for="username">Email</label>
+          <input type="email" class="form-control" name="username" id="username">
         </div>
-        <div id="questions"></div>
-      </section>
-    </section>
-    <!-- PRACTICE END -->
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-      crossorigin="anonymous"
-    ></script>
-    <script src="./js/index.js"></script>
-  </body>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" name="password" id="password">
+        </div>
+        <p class="text-right "><b>Bạn chưa có tài khoản?</b> <a href="./page/signup.html">Đăng ký</a></p>
+        <button type="button" name="btn-login" class="btn btn-primary btn-lg btn-block mt-4" onclick="Login()">Đăng
+          nhập</button>
+        <p class="text-center mt-3" id="notification" style="color:red; font-weight:bold; font-size:18px"></p>  
+      </form>
+    </div>
+  </div>
+
+  <!-- Axios JavaScript -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <!-- My JavaScript -->
+  <script src="./js/signin.js"></script>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
 </html>
