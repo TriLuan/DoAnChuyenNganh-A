@@ -10,7 +10,7 @@ function Login() {
         axios.get(URL).then((response) => {
             var data = response.data;
             var password = String(renderPassword(data));
-            console.log(password)
+            console.log(password);
             checkPasswordStudent(password, email);
         });
     }
@@ -41,9 +41,22 @@ function checkPasswordStudent(pwd, email) {
         document.getElementById('password').value = "";
     }
     else {
-        document.getElementById('username').value = "";
-        document.getElementById('password').value = "";
-        document.location = '../index.html';
+        // True Student
+        var role = "Student";
+        sessionStorage.setItem("Role",role);
+        var email = String(document.getElementById('username').value.trim());
+        sessionStorage.setItem("Student_Email", email);
+        var URL = String(URI + "students/getinformation/" + email);
+        axios.get(URL).then((response) => {
+            var data = response.data;
+            console.log(data);
+            var Student_id = String(renderStudentID(data));
+            sessionStorage.setItem("Student_Id", Student_id);
+            var Student_FullName = String(renderFullName(data));
+            sessionStorage.setItem("Student_FullName", Student_FullName);
+            clearForm();
+            document.location = './page/home.html';
+        });
     }
 }
 
@@ -58,8 +71,42 @@ function checkPasswordAuthor(pwd) {
         document.getElementById('password').value = "";
     }
     else {
-        document.getElementById('username').value = "";
-        document.getElementById('password').value = "";
-        document.location = '../index.html';
+        // True Author
+        var role = "Author";
+        sessionStorage.setItem("Role",role);
+        var email = String(document.getElementById('username').value.trim());
+        sessionStorage.setItem("Author_Email", email);
+        var URL = String(URI + "authors/getinformation/" + email);
+        axios.get(URL).then((response) => {
+            var data = response.data;
+            console.log(data);
+            var Author_id = String(renderAuthorID(data));
+            sessionStorage.setItem("Author_Id", Author_id);
+            var Author_FullName = String(renderFullName(data));
+            sessionStorage.setItem("Author_FullName", Author_FullName);
+            clearForm();
+            document.location = './page/home.html';
+        });
+    }
+}
+
+function clearForm() {
+    document.getElementById('username').value = "";
+    document.getElementById('password').value = "";
+}
+
+function renderStudentID(data) {
+    for (var information of data) {
+        return information.Student_id;
+    }
+}
+function renderAuthorID(data) {
+    for (var information of data) {
+        return information.Author_id;
+    }
+}
+function renderFullName(data) {
+    for (var information of data) {
+        return information.FullName;
     }
 }

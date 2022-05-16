@@ -12,7 +12,6 @@ function renderSampleTestCase(obj) {
       <input type="text" class="form-control" id="txtSampleTestCaseInput`+ i + `" placeholder="Input"/>
       <input type="text" class="form-control" id="txtSampleTestCaseOutput`+ i + `" placeholder="Output"/>
                   `;
-    //console.log(i);
   }
   console.log(typeof value);
   console.log(content);
@@ -31,7 +30,6 @@ function renderTestCase(obj) {
         <input type="text" class="form-control" id="txtTestCaseInput`+ i + `" placeholder="Input"/>
         <input type="text" class="form-control" id="txtTestCaseOutput`+ i + `" placeholder="Output"/>
                     `;
-    console.log(i);
   }
   console.log(typeof value);
   console.log(content);
@@ -46,7 +44,7 @@ function btnSubmit_Question() {
   if (testCase != 0 && sampleTestCase != 0 && title != "" && description != "") {
     postQuestionProcess();
   }
-  else{
+  else {
     alert("Vui lòng nhập đầy đủ!!!");
   }
 }
@@ -63,7 +61,6 @@ function postQuestionProcess() {
     var Question_id = renderLastId(data) + 1;
     runPostQuestion(Question_id);
   });
-
 }
 
 function runPostQuestion(Question_id) {
@@ -80,7 +77,7 @@ function runPostQuestion(Question_id) {
     CreateDate: date,
     Topic: topic,
     Level: level,
-    Author_id: 1,
+    Author_id: sessionStorage.getItem("Author_Id"),
   };
   submitQuestion(param, Question_id);
 }
@@ -112,8 +109,7 @@ function runPostTestCase(Question_id) {
 function submitTestCase(param) {
   axios.post(URI + 'testcases/add', param).then((response) => {
     var result = response.data;
-    location.reload();
-    console.log("Thành công");
+    updateTotalQuesion();
   });
 }
 
@@ -138,11 +134,32 @@ function submitSampleTestCase(param) {
     var result = response.data;
   });
 }
-// function clearForm() {
-//   document.getElementById("txtTitle").value = "";
-//   document.getElementById("txtDescription").value = "";
-//   document.getElementById("topic").value = "Cơ bản";
-//   document.getElementById("level").value = "Dễ";
-//   document.querySelector("numberSampleTestCase").selected;
-//   document.querySelector("numberTestCase").selected  =true;
-// }
+
+function updateTotalQuesion() {
+  axios.get(URI + "authors/gettotalquestion/" + sessionStorage.getItem("Author_Email")).then((response) => {
+    var data = response.data;
+    var totalQuesion = Number(renderTotalQuesion(data)) + 1;
+    var Author_id = Number(sessionStorage.getItem("Author_Id"));
+    var param = {
+      Total_question: totalQuesion,
+      Author_id: Author_id,
+    };
+    console.log(param);
+    putTotalQuestion(param);
+  });
+}
+
+function renderTotalQuesion(data) {
+  for (var tmp of data) {
+    return tmp.Total_question;
+  }
+}
+
+function putTotalQuestion(param) {
+  axios.put(URI + "authors/puttotalquestion", param).then((response) => {
+    var result = response.data;
+    console.log(result);
+    alert("Đăng câu hỏi thành công");
+    location.reload();
+  });
+}

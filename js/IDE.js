@@ -4,6 +4,7 @@ const URL = "http://159.223.81.131:4000/jobe/index.php/restapi/";
 function page_Load() {
   getLanguages();
   getQuestion();
+  setPostQuestion();
 }
 
 /* Start Business Methods */
@@ -218,6 +219,13 @@ function renderError(result) {
   }
   document.getElementById("txtConsole").innerHTML = output;
   clearTestCase();
+}
+
+function setPostQuestion(){
+  var role = sessionStorage.getItem("Role");
+  if (role == "Student"){
+    document.getElementById("post-practice").style.display = "none";
+  }
 }
 /* End Helper Methods */
 

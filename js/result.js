@@ -1,3 +1,8 @@
+function page_Load(){
+    displayResult();
+    setPostQuestion();
+}
+
 function displayResult() {
     var content = "";
     content += `
@@ -8,6 +13,9 @@ function displayResult() {
     console.log(content);
 }
 
-function page_Load(){
-    displayResult();
-}
+function setPostQuestion(){
+    var role = sessionStorage.getItem("Role");
+    if (role == "Student"){
+      document.getElementById("post-practice").style.display = "none";
+    }
+  }

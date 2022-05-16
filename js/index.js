@@ -1,6 +1,11 @@
 const URI = "http://103.253.147.116:4000/";
 var questionList=[];
 
+function page_Load(){
+  getData('questions');
+  setPostQuestion();
+}
+
 var getData=function(dataName){
   axios.get(URI+ dataName+"/getlist").then((response) => {
     questionList = response.data;
@@ -39,7 +44,7 @@ var renderQuestions = function () {
       questionList[i].Description +
       `
               </p>
-              <button onclick="document.location='./page/IDE.html'">Làm bài</button>
+              <button onclick="document.location='./IDE.html'">Làm bài</button>
             </div>
           </div>
         
@@ -48,3 +53,10 @@ var renderQuestions = function () {
 
   document.querySelector("#questions").innerHTML = content;
 };
+
+function setPostQuestion(){
+  var role = sessionStorage.getItem("Role");
+  if (role == "Student"){
+    document.getElementById("post-practice").style.display = "none";
+  }
+}
