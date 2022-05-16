@@ -16,6 +16,6 @@ function displayResult() {
 function setPostQuestion(){
     var role = sessionStorage.getItem("Role");
     if (role == "Student"){
-      document.getElementById("post-practice").style.display = "none";
+      document.getElementById("post-practice").style.visibility = "hidden";
     }
   }
