@@ -223,8 +223,8 @@ function renderError(result) {
 
 function setPostQuestion(){
   var role = sessionStorage.getItem("Role");
-  if (role == "Student"){
-    document.getElementById("post-practice").style.visibility = "hidden";
+  if (role == "Author"){
+    document.getElementById("post-practice").style.visibility = "visible";
   }
 }
 
