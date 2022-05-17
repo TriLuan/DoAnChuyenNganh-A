@@ -1,7 +1,7 @@
 const URI = "http://103.253.147.116:4000/";
 var questionList = [];
 
-function page_Load(){
+function page_Load() {
   getData('questions');
   setPostQuestion();
 }
@@ -164,9 +164,13 @@ var renderQuestionsTopic = function () {
   document.querySelector("#questions").innerHTML = content;
 };
 
-function setPostQuestion(){
+function setPostQuestion() {
   var role = sessionStorage.getItem("Role");
-  if (role == "Author"){
+  if (role == "Author") {
     document.getElementById("post-practice").style.visibility = "visible";
+    document.getElementById("account").innerHTML = sessionStorage.getItem("Author_FullName");
+  }
+  else {
+    document.getElementById("account").innerHTML = sessionStorage.getItem("Student_FullName");
   }
 }

@@ -165,7 +165,7 @@ function submitCode_TestCase(param, testCases, i) {
     var result = response.data;
     console.log(result);
     checkTestCase(testCases, result, i);
-    if (i == testCases.length -1) {
+    if (i == testCases.length - 1) {
       document.location = "result.html";
       disabledButton_Submit(false);
     }
@@ -176,7 +176,7 @@ function checkTestCase(testCases, result, i) {
   if (testCases[i].Output == result.stdout) {
     console.log("pass");
     sessionStorage.setItem("Pass", (Number(sessionStorage.getItem("Pass")) + 1));
-  } 
+  }
 }
 
 function disabledButton_Submit(isDisabled) {
@@ -221,10 +221,14 @@ function renderError(result) {
   clearTestCase();
 }
 
-function setPostQuestion(){
+function setPostQuestion() {
   var role = sessionStorage.getItem("Role");
-  if (role == "Author"){
+  if (role == "Author") {
     document.getElementById("post-practice").style.visibility = "visible";
+    document.getElementById("account").innerHTML = sessionStorage.getItem("Author_FullName");
+  }
+  else {
+    document.getElementById("account").innerHTML = sessionStorage.getItem("Student_FullName");
   }
 }
 

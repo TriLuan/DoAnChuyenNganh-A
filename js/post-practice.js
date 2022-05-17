@@ -1,5 +1,9 @@
 var URI = "http://103.253.147.116:4000/";
 
+function page_Load() {
+  setPostQuestion();
+}
+
 function renderSampleTestCase(obj) {
   var value = Number(obj.value);
   var content = "";
@@ -164,4 +168,14 @@ function putTotalQuestion(param) {
     var result = response.data;
     location.reload();
   });
+}
+
+function setPostQuestion() {
+  var role = sessionStorage.getItem("Role");
+  if (role == "Author") {
+    document.getElementById("account").innerHTML = sessionStorage.getItem("Author_FullName");
+  }
+  else {
+    document.getElementById("account").innerHTML = sessionStorage.getItem("Student_FullName");
+  }
 }
