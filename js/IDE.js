@@ -156,9 +156,12 @@ function testingProcess(testCases) {
         input: testCases[i].Input,
       },
     };
+    console.log(param);
     submitCode_TestCase(param, testCases, i);
   }
 }
+
+var j = 0;
 
 function submitCode_TestCase(param, testCases, i) {
   axios.post(URL + "runs", param).then((response) => {
@@ -166,6 +169,7 @@ function submitCode_TestCase(param, testCases, i) {
     console.log(result);
     checkTestCase(testCases, result, i);
     if (i == testCases.length - 1) {
+      j = 0;
       document.location = "result.html";
       disabledButton_Submit(false);
     }
@@ -176,6 +180,12 @@ function checkTestCase(testCases, result, i) {
   if (testCases[i].Output == result.stdout) {
     console.log("pass");
     sessionStorage.setItem("Pass", (Number(sessionStorage.getItem("Pass")) + 1));
+  }
+  else if (result.outcome === 15) {
+    var name = String("Fail" + j);
+    var data = String("Input: "+testCases[i].Input+" Expected Result: "+testCases[i].Output+" Execute Result: "+result.stdout);
+    sessionStorage.setItem(name, data);
+    j++;
   }
 }
 

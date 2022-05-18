@@ -1,6 +1,7 @@
 function page_Load() {
     displayResult();
     setPostQuestion();
+    displayTestCaseFail();
 }
 
 function displayResult() {
@@ -10,7 +11,17 @@ function displayResult() {
         <h1 class = "mt-4 text-center text-danger">Đạt: `+ sessionStorage.getItem("Pass") + `/` + sessionStorage.getItem("Total_TestCases") + ` test cases</h1>
         `;
     document.getElementById("result").innerHTML = content;
-    console.log(content);
+}
+
+function displayTestCaseFail() {
+    var tmp = sessionStorage.getItem("Total_TestCases") - sessionStorage.getItem("Pass");
+    console.log("Test Case Fail");
+    if (tmp != 0) {
+        for (var i = 0; i < tmp; i++) {
+            var name = String("Fail"+i);
+            console.log(sessionStorage.getItem(name));
+        }
+    }
 }
 
 function setPostQuestion() {
