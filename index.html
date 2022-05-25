@@ -20,7 +20,7 @@
 </head>
 
 <body class="bg-light">
-  
+
   <div class="card-header text-center bg-white">
     <nav id="introductionNavbar" class="navbar navbar-expand-md navbar-light">
       <div class="container">
@@ -69,9 +69,9 @@
           <input type="password" class="form-control" name="password" id="password">
         </div>
         <p class="text-right "><b>Bạn chưa có tài khoản?</b> <a href="./page/signup.html">Đăng ký</a></p>
-        <button type="button" name="btn-login" class="btn btn-primary btn-lg btn-block mt-4" onclick="Login()">Đăng
+        <button type="button" id="btn-login" name="btn-login" class="btn btn-primary btn-lg btn-block mt-4" onclick="Login()">Đăng
           nhập</button>
-        <p class="text-center mt-3" id="notification" style="color:red; font-weight:bold; font-size:18px"></p>  
+        <p class="text-center mt-3" id="notification" style="color:red; font-weight:bold; font-size:18px"></p>
       </form>
     </div>
   </div>
@@ -86,6 +86,17 @@
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <!-- My JavaScript Keypress Enter Event Handler --->
+  <script>
+    var input = document.getElementById("password");
+    input.addEventListener("keypress", function (event) {
+      if (event.key == "Enter") {
+        event.preventDefault();
+        document.getElementById("btn-login").click();
+      }
+    });
+  </script>
 </body>
 
 </html>

@@ -73,7 +73,7 @@ function runPostQuestion(Question_id) {
   var topic = String(document.getElementById("topic").value);
   var level = String(document.getElementById("level").value);
   var today = new Date();
-  var date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+  var date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + " "+ (today.getHours()) + ":" + today.getMinutes() + ":"+ today.getSeconds();
   var param = {
     Question_id: Question_id,
     Title: title,
@@ -138,35 +138,8 @@ function submitTestCase(param, i, totalTestCase) {
   axios.post(URI + 'testcases/add', param).then((response) => {
     var result = response.data;
     if (i == totalTestCase - 1) {
-      updateTotalQuesion();
+      location.reload();
     }
-  });
-}
-
-function updateTotalQuesion() {
-  axios.get(URI + "authors/gettotalquestion/" + sessionStorage.getItem("Author_Email")).then((response) => {
-    var data = response.data;
-    var totalQuesion = Number(renderTotalQuesion(data)) + 1;
-    var Author_id = Number(sessionStorage.getItem("Author_Id"));
-    var param = {
-      Total_question: totalQuesion,
-      Author_id: Author_id,
-    };
-    console.log(param);
-    putTotalQuestion(param);
-  });
-}
-
-function renderTotalQuesion(data) {
-  for (var tmp of data) {
-    return tmp.Total_question;
-  }
-}
-
-function putTotalQuestion(param) {
-  axios.put(URI + "authors/puttotalquestion", param).then((response) => {
-    var result = response.data;
-    location.reload();
   });
 }
 

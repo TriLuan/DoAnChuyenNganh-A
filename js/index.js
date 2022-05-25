@@ -36,7 +36,7 @@ var renderQuestions = function () {
       `</span>
                 <br>
                 <span>Ngày tạo: ` +
-      questionList[i].CreateDate.slice(0, 10) +
+      renderCreateDate(questionList[i].CreateDate) +
       `</span>
                 <br>
               <p>
@@ -63,4 +63,8 @@ function setPostQuestion() {
   else {
     document.getElementById("account").innerHTML = sessionStorage.getItem("Student_FullName");
   }
+}
+
+function renderCreateDate(createDate) {
+  return String(createDate.slice(8, 10) + "-" + createDate.slice(5, 7) + "-" + createDate.slice(0, 4) + " " + createDate.slice(11, 19));
 }

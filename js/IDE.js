@@ -134,15 +134,13 @@ function btnSubmit_Click() {
 }
 
 var runTestingTestCase = function () {
-  axios
-    .get("http://103.253.147.116:4000/testcases/getlist")
-    .then((response) => {
-      var testCaseList = response.data;
-      testCases = testCaseList.filter(function (testCaseList) {
-        return testCaseList.Question_id === questionID;
-      });
-      testingProcess(testCases);
+  axios.get("http://103.253.147.116:4000/testcases/getlist").then((response) => {
+    var testCaseList = response.data;
+    testCases = testCaseList.filter(function (testCaseList) {
+      return testCaseList.Question_id === questionID;
     });
+    testingProcess(testCases);
+  });
 };
 
 function testingProcess(testCases) {
@@ -156,7 +154,7 @@ function testingProcess(testCases) {
         input: testCases[i].Input,
       },
     };
-    console.log(param);
+    sessionStorage.setItem("SourceCode", codeMirror.getValue());
     submitCode_TestCase(param, testCases, i);
   }
 }
@@ -181,9 +179,9 @@ function checkTestCase(testCases, result, i) {
     console.log("pass");
     sessionStorage.setItem("Pass", (Number(sessionStorage.getItem("Pass")) + 1));
   }
-  else if (result.outcome === 15) {
+  else {
     var name = String("Fail" + j);
-    var data = String("Input: "+testCases[i].Input+" Expected Result: "+testCases[i].Output+" Execute Result: "+result.stdout);
+    var data = String("Input: " + testCases[i].Input + " Expected Result: " + testCases[i].Output + " Execute Result: " + result.stdout);
     sessionStorage.setItem(name, data);
     j++;
   }

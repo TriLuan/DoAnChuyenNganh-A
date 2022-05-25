@@ -1,3 +1,5 @@
+const URI = "http://103.253.147.116:4000/";
+
 function page_Load() {
     displayResult();
     setPostQuestion();
@@ -18,7 +20,7 @@ function displayTestCaseFail() {
     console.log("Test Case Fail");
     if (tmp != 0) {
         for (var i = 0; i < tmp; i++) {
-            var name = String("Fail"+i);
+            var name = String("Fail" + i);
             console.log(sessionStorage.getItem(name));
         }
     }
@@ -33,4 +35,49 @@ function setPostQuestion() {
     else {
         document.getElementById("account").innerHTML = sessionStorage.getItem("Student_FullName");
     }
+}
+
+function addHistoryResultProcess() {
+    var role = sessionStorage.getItem("Role");
+    if (role == "Student") {
+        var questionId = sessionStorage.getItem("ID");
+        var questionDescription = sessionStorage.getItem("description");
+        var studentId = sessionStorage.getItem("Student_Id");
+        var pass = String(sessionStorage.getItem("Pass") + "/" + sessionStorage.getItem("Total_TestCases"));
+        var testCaseFail = String(renderTestCaseFail());
+        var sourceCode = sessionStorage.getItem("SourceCode");
+        var today = new Date();
+        var date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + " " + (today.getHours()) + ":" + today.getMinutes() + ":" + today.getSeconds();
+        var param = {
+            Question_id : questionId,
+            question_description : questionDescription,
+            Student_id : studentId,
+            Pass : pass,
+            Testcase_fail : testCaseFail,
+            Source_code : sourceCode,
+            Submit_date : date,
+        };
+        console.log(param);
+        postHistoryResult(param);
+    }
+}
+
+function postHistoryResult(param) {
+    axios.post(URI + "historypractices/add", param).then((response) => {
+        var result = response.data;
+        console.log(result);
+        document.location = "practice.html";
+    });
+}
+
+function renderTestCaseFail() {
+    var tmp = sessionStorage.getItem("Total_TestCases") - sessionStorage.getItem("Pass");
+    var data = "";
+    if (tmp != 0) {
+        for (var i = 0; i < tmp; i++) {
+            var name = String("Fail" + i);
+            data += String(sessionStorage.getItem(name)) + "\n";
+        }
+    }
+    return data;
 }

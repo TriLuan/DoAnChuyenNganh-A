@@ -45,7 +45,6 @@ function checkPasswordStudent(pwd, email) {
         var role = "Student";
         sessionStorage.setItem("Role",role);
         var email = String(document.getElementById('username').value.trim());
-        sessionStorage.setItem("Student_Email", email);
         var URL = String(URI + "students/getinformation/" + email);
         axios.get(URL).then((response) => {
             var data = response.data;
@@ -75,7 +74,6 @@ function checkPasswordAuthor(pwd) {
         var role = "Author";
         sessionStorage.setItem("Role",role);
         var email = String(document.getElementById('username').value.trim());
-        sessionStorage.setItem("Author_Email", email);
         var URL = String(URI + "authors/getinformation/" + email);
         axios.get(URL).then((response) => {
             var data = response.data;

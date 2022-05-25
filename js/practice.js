@@ -66,7 +66,7 @@ var renderQuestionsTopic = function () {
       `</span>
                     <br>
                     <span>Ngày tạo: ` +
-      questionListEasy[i].CreateDate.slice(0, 10) +
+      renderCreateDate(questionListEasy[i].CreateDate)+
       `</span>
                     <br>
                   <p id="description">
@@ -106,7 +106,7 @@ var renderQuestionsTopic = function () {
       `</span>
                       <br>
                       <span>Ngày tạo: ` +
-      questionListMedium[i].CreateDate.slice(0, 10) +
+      renderCreateDate(questionListMedium[i].CreateDate) +
       `</span>
                       <br>
                     <p id="description">
@@ -147,7 +147,7 @@ var renderQuestionsTopic = function () {
       `</span>
                       <br>
                       <span>Ngày tạo: ` +
-      questionListDifficult[i].CreateDate.slice(0, 10) +
+      renderCreateDate(questionListDifficult[i].CreateDate) +
       `</span>
                       <br>
                     <p id="description">
@@ -173,4 +173,8 @@ function setPostQuestion() {
   else {
     document.getElementById("account").innerHTML = sessionStorage.getItem("Student_FullName");
   }
+}
+
+function renderCreateDate(createDate) {
+  return String(createDate.slice(8, 10) + "-" + createDate.slice(5, 7) + "-" + createDate.slice(0, 4) + " " + createDate.slice(11, 19));
 }
