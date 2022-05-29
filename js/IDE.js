@@ -5,6 +5,7 @@ function page_Load() {
   getLanguages();
   getQuestion();
   setPostQuestion();
+  setSessionsStoreSampleTestCase();
 }
 
 /* Start Business Methods */
@@ -42,16 +43,14 @@ function btnRun_Click() {
 }
 
 var runTestingSampleTestCase = function () {
-  axios
-    .get("http://103.253.147.116:4000/sampletestcases/getlist")
-    .then((response) => {
-      var sampleTestCaseList = response.data;
-      sampleTestCases = sampleTestCaseList.filter(function (sampleTestCaseList) {
-        return sampleTestCaseList.Question_id === questionID;
-      });
-      sampleTestingProcess(sampleTestCases);
+  axios.get("http://103.253.147.116:4000/sampletestcases/getlist").then((response) => {
+    var sampleTestCaseList = response.data;
+    sampleTestCases = sampleTestCaseList.filter(function (sampleTestCaseList) {
+      return sampleTestCaseList.Question_id === questionID;
     });
-};
+    sampleTestingProcess(sampleTestCases);
+  });
+}
 
 var count = 0;
 function sampleTestingProcess(sampleTestCases) {
@@ -146,6 +145,7 @@ var runTestingTestCase = function () {
 function testingProcess(testCases) {
   sessionStorage.setItem("Pass", 0);
   sessionStorage.setItem("Total_TestCases", testCases.length);
+  sessionStorage.setItem("SourceCode", codeMirror.getValue());
   for (let i = 0; i < testCases.length; i++) {
     var param = {
       run_spec: {
@@ -154,7 +154,6 @@ function testingProcess(testCases) {
         input: testCases[i].Input,
       },
     };
-    sessionStorage.setItem("SourceCode", codeMirror.getValue());
     submitCode_TestCase(param, testCases, i);
   }
 }
@@ -168,8 +167,8 @@ function submitCode_TestCase(param, testCases, i) {
     checkTestCase(testCases, result, i);
     if (i == testCases.length - 1) {
       j = 0;
-      document.location = "result.html";
       disabledButton_Submit(false);
+      document.location = "result.html";
     }
   });
 }
@@ -238,6 +237,21 @@ function setPostQuestion() {
   else {
     document.getElementById("account").innerHTML = sessionStorage.getItem("Student_FullName");
   }
+}
+
+function setSessionsStoreSampleTestCase() {
+  axios.get("http://103.253.147.116:4000/sampletestcases/getlist").then((response) => {
+      var sampleTestCaseList = response.data;
+      sampleTestCases = sampleTestCaseList.filter(function (sampleTestCaseList) {
+        return sampleTestCaseList.Question_id === questionID;
+      });
+      for (let i = 0; i < sampleTestCases.length; i++) {
+        var nameInput = String("SampleTestCaseInput" + i);
+        var nameOutput = String("SampleTestCaseOutput" + i);
+        sessionStorage.setItem(nameInput, sampleTestCases[i].Input);
+        sessionStorage.setItem(nameOutput, sampleTestCases[i].Output);
+      }
+    });
 }
 
 /* End Helper Methods */

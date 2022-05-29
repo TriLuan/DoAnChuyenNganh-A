@@ -49,13 +49,13 @@ function addHistoryResultProcess() {
         var today = new Date();
         var date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + " " + (today.getHours()) + ":" + today.getMinutes() + ":" + today.getSeconds();
         var param = {
-            Question_id : questionId,
-            question_description : questionDescription,
-            Student_id : studentId,
-            Pass : pass,
-            Testcase_fail : testCaseFail,
-            Source_code : sourceCode,
-            Submit_date : date,
+            Question_id: questionId,
+            question_description: questionDescription,
+            Student_id: studentId,
+            Pass: pass,
+            Testcase_fail: testCaseFail,
+            Source_code: sourceCode,
+            Submit_date: date,
         };
         console.log(param);
         postHistoryResult(param);
@@ -66,6 +66,7 @@ function postHistoryResult(param) {
     axios.post(URI + "historypractices/add", param).then((response) => {
         var result = response.data;
         console.log(result);
+        clearSessionStorage();
         document.location = "practice.html";
     });
 }
@@ -80,4 +81,14 @@ function renderTestCaseFail() {
         }
     }
     return data;
+}
+
+function clearSessionStorage() {
+    var tmp = sessionStorage.getItem("Total_TestCases") - sessionStorage.getItem("Pass");
+    if (tmp != 0) {
+        for (var i = 0; i < tmp; i++) {
+            var name = String("Fail" + i);
+            sessionStorage.setItem(name, null);
+        }
+    }
 }
