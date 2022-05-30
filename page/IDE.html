@@ -9,12 +9,10 @@
 
     <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">  -->
     <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- FONT  -->
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
@@ -59,7 +57,7 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="Menu">
+        <div class="collapse navbar-collapse">
           <ul class="navbar-nav navbar-nav--menu ml-auto">
             <li class="nav-item">
               <a class="nav-link" href="./home.html">Trang chủ</a>
@@ -70,41 +68,23 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Thi</a>
             </li>
-            <li class="nav-item" id = "post-practice" style="visibility:hidden;">
+            <li class="nav-item" id="post-practice" style="visibility: hidden">
               <a class="nav-link" href="./post-practice.html">Đăng bài</a>
             </li>
-            <li class="nav-item-account">
-              <span>Hi</span>
-              <i id="account"></i>
-            </li>
-            <!-- <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="true"
-              >
-                PAGES
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Codes</a>
-                <a class="dropdown-item" href="#">Icons</a>
-              </div>
-            </li> -->
-            <!-- <li class="nav-item-button">
-              <button onclick="document.location='./signin.html'">
-                Đăng nhập
-              </button>
-            </li>
-            <li class="nav-item-button">
-              <button onclick="document.location='./signup.html'">
-                Đăng ký
-              </button>
-            </li> -->
           </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item-account dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg" width="40" height="40" class="rounded-circle">
+              <i id="account"></i>
+            </a>
+            <div class="dropdown-menu" style="margin-top: 15px;" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="#">Lịch sử đăng bài</a>
+              <a class="dropdown-item" href="./history-result.html">Lịch sử làm bài</a>
+              <a class="dropdown-item" href="#">Đăng xuất</a>
+            </div>
+          </li>   
+        </ul>
         </div>
       </div>
     </nav>
@@ -112,6 +92,7 @@
     <section class="IDE-section">
       <div class="container mt-4">
         <h1>Đề bài: <span id="description"></span></h1>
+        <p id="sampleTestCase"></p>
       </div>
       <table align="center" width="90%">
         <tr>
@@ -152,19 +133,29 @@
               style="width: 100%; height: 680px"
             ></textarea>
           </td>
-          <td width="30%" style="padding-top: 5px;background-color: #232432;color:white">
-            <div style="width: 99%; height: 340px">
-              <h3>Test Case</h3>
-              <div id="txtTestCase">
-              </div>
-            </div>
+          <td
+            width="30%"
+            style="padding-top: 5px;"
+          >
+            <textarea
+              id="txtInput"
+              placeholder="Input"
+              style="width: 99%; height: 340px; background-color: #232432; color: white"
+            ></textarea>
           </td>
         </tr>
         <tr>
           <td>
-            <div  style="width: 100%; height: 340px;background-color: #232432;color:white">
-              <h3>Console</h3>
-              <span id="txtConsole"></span>
+            <div
+              style="
+                width: 100%;
+                height: 340px;
+                background-color: #232432;
+                color: white;
+              "
+            >
+              <h4>Output</h4>
+              <span id="output"></span>
             </div>
           </td>
         </tr>

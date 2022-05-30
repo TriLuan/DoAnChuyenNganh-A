@@ -19,13 +19,15 @@ function clearTestCase() {
   document.getElementById("txtTestCase").innerHTML = "";
 }
 function clearConsole() {
-  document.getElementById("txtConsole").innerHTML = "";
+  document.getElementById("output").innerHTML = "";
 }
 
 var getQuestion = function () {
   if (sessionStorage.description) {
     document.getElementById("description").innerHTML =
       sessionStorage.getItem("description");
+    document.getElementById("sampleTestCase").innerHTML =
+      sessionStorage.getItem("sampleTestCase");
     questionID = Number(sessionStorage.getItem("ID"));
   } else {
     console.log("sessionStorage.description = null");
@@ -225,7 +227,7 @@ function renderError(result) {
   } else if (result.outcome === 21) {
     output = "Server overload";
   }
-  document.getElementById("txtConsole").innerHTML = output;
+  document.getElementById("output").innerHTML = output;
   clearTestCase();
 }
 
