@@ -1,4 +1,4 @@
-var URI = "http://103.253.147.116:4000/";
+var URI = "http://104.248.145.103:4000/";
 
 function page_Load() {
   setPostQuestion();
@@ -73,7 +73,7 @@ function runPostQuestion(Question_id) {
   var topic = String(document.getElementById("topic").value);
   var level = String(document.getElementById("level").value);
   var today = new Date();
-  var date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + " "+ (today.getHours()) + ":" + today.getMinutes() + ":"+ today.getSeconds();
+  var date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + " " + (today.getHours()) + ":" + today.getMinutes() + ":" + today.getSeconds();
   var param = {
     Question_id: Question_id,
     Title: title,

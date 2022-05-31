@@ -1,4 +1,5 @@
-const URL = "http://159.223.81.131:4000/jobe/index.php/restapi/";
+const URL = "http://128.199.172.148:4000/jobe/index.php/restapi/";
+const URL1 = "http://104.248.145.103:4000/"
 
 /* event-handler methods */
 function page_Load() {
@@ -45,7 +46,7 @@ function btnRun_Click() {
 }
 
 var runTestingSampleTestCase = function () {
-  axios.get("http://103.253.147.116:4000/sampletestcases/getlist").then((response) => {
+  axios.get(URL1 + "sampletestcases/getlist").then((response) => {
     var sampleTestCaseList = response.data;
     sampleTestCases = sampleTestCaseList.filter(function (sampleTestCaseList) {
       return sampleTestCaseList.Question_id === questionID;
@@ -135,7 +136,7 @@ function btnSubmit_Click() {
 }
 
 var runTestingTestCase = function () {
-  axios.get("http://103.253.147.116:4000/testcases/getlist").then((response) => {
+  axios.get(URL1 + "testcases/getlist").then((response) => {
     var testCaseList = response.data;
     testCases = testCaseList.filter(function (testCaseList) {
       return testCaseList.Question_id === questionID;
@@ -242,18 +243,18 @@ function setPostQuestion() {
 }
 
 function setSessionsStoreSampleTestCase() {
-  axios.get("http://103.253.147.116:4000/sampletestcases/getlist").then((response) => {
-      var sampleTestCaseList = response.data;
-      sampleTestCases = sampleTestCaseList.filter(function (sampleTestCaseList) {
-        return sampleTestCaseList.Question_id === questionID;
-      });
-      for (let i = 0; i < sampleTestCases.length; i++) {
-        var nameInput = String("SampleTestCaseInput" + i);
-        var nameOutput = String("SampleTestCaseOutput" + i);
-        sessionStorage.setItem(nameInput, sampleTestCases[i].Input);
-        sessionStorage.setItem(nameOutput, sampleTestCases[i].Output);
-      }
+  axios.get(URL1 + "sampletestcases/getlist").then((response) => {
+    var sampleTestCaseList = response.data;
+    sampleTestCases = sampleTestCaseList.filter(function (sampleTestCaseList) {
+      return sampleTestCaseList.Question_id === questionID;
     });
+    for (let i = 0; i < sampleTestCases.length; i++) {
+      var nameInput = String("SampleTestCaseInput" + i);
+      var nameOutput = String("SampleTestCaseOutput" + i);
+      sessionStorage.setItem(nameInput, sampleTestCases[i].Input);
+      sessionStorage.setItem(nameOutput, sampleTestCases[i].Output);
+    }
+  });
 }
 
 /* End Helper Methods */

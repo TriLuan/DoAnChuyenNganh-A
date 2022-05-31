@@ -1,4 +1,4 @@
-const URI = 'http://103.253.147.116:4000/';
+const URI = 'http://104.248.145.103:4000/';
 
 function Login() {
     var email = String(document.getElementById('username').value.trim());
@@ -43,7 +43,7 @@ function checkPasswordStudent(pwd, email) {
     else {
         // True Student
         var role = "Student";
-        sessionStorage.setItem("Role",role);
+        sessionStorage.setItem("Role", role);
         var email = String(document.getElementById('username').value.trim());
         var URL = String(URI + "students/getinformation/" + email);
         axios.get(URL).then((response) => {
@@ -72,7 +72,7 @@ function checkPasswordAuthor(pwd) {
     else {
         // True Author
         var role = "Author";
-        sessionStorage.setItem("Role",role);
+        sessionStorage.setItem("Role", role);
         var email = String(document.getElementById('username').value.trim());
         var URL = String(URI + "authors/getinformation/" + email);
         axios.get(URL).then((response) => {

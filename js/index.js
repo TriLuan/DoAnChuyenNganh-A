@@ -1,4 +1,4 @@
-const URI = "http://103.253.147.116:4000/";
+const URI = "http://104.248.145.103:4000/";
 var questionList = [];
 
 function page_Load() {
