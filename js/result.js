@@ -60,6 +60,9 @@ function addHistoryResultProcess() {
         console.log(param);
         postHistoryResult(param);
     }
+    else{
+        document.location = "practice.html";
+    }
 }
 
 function postHistoryResult(param) {
