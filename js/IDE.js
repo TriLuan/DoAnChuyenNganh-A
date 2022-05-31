@@ -1,5 +1,5 @@
 const URL = "http://128.199.172.148:4000/jobe/index.php/restapi/";
-const URL1 = "http://104.248.145.103:4000/"
+const URL1 = "http://104.248.145.103:4000/";
 
 /* event-handler methods */
 function page_Load() {
@@ -28,8 +28,6 @@ var getQuestion = function () {
   if (sessionStorage.description) {
     document.getElementById("description").innerHTML =
       sessionStorage.getItem("description");
-    document.getElementById("sampleTestCase").innerHTML =
-      sessionStorage.getItem("sampleTestCase");
     questionID = Number(sessionStorage.getItem("ID"));
   } else {
     console.log("sessionStorage.description = null");
@@ -38,12 +36,12 @@ var getQuestion = function () {
 /* End Business Methods */
 
 /* Start Sample Test Cases */
-function btnRun_Click() {
-  disabledButton_Run(true);
-  content = "";
-  runTestingSampleTestCase();
-  clearConsole();
-}
+// function btnRun_Click() {
+//   disabledButton_Run(true);
+//   content = "";
+//   runTestingSampleTestCase();
+//   clearConsole();
+// }
 
 var runTestingSampleTestCase = function () {
   axios.get(URL1 + "sampletestcases/getlist").then((response) => {
@@ -53,7 +51,7 @@ var runTestingSampleTestCase = function () {
     });
     sampleTestingProcess(sampleTestCases);
   });
-}
+};
 
 var count = 0;
 function sampleTestingProcess(sampleTestCases) {
@@ -97,22 +95,40 @@ function checkSampleTestCase(sampleTestCases, result, i) {
 
 var content = "";
 function handleTrueResult(testCases, result, i) {
-  content += `
-  <h4>Kiểm thử `+ (Number(i) + 1) + ` <i class="fa-solid fa-circle-check"></i></h4>
-  <h5>Input: `+ testCases[i].Input + ` </h5>
-  <h5>Output: `+ testCases[i].Output + `</h5>
-  <h5>Output thực tế: `+ result.stdout + `</h5>
+  content +=
+    `
+  <h4>Kiểm thử ` +
+    (Number(i) + 1) +
+    ` <i class="fa-solid fa-circle-check"></i></h4>
+  <h5>Input: ` +
+    testCases[i].Input +
+    ` </h5>
+  <h5>Output: ` +
+    testCases[i].Output +
+    `</h5>
+  <h5>Output thực tế: ` +
+    result.stdout +
+    `</h5>
                   `;
   document.getElementById("txtTestCase").innerHTML = content;
   console.log(content);
 }
 
 function handleFalseResult(testCases, result, i) {
-  content += `
-  <h4>Kiểm thử `+ (Number(i) + 1) + ` <i class="fa-solid fa-triangle-exclamation"></i></i></h4>
-  <h5>Input: `+ testCases[i].Input + ` </h5>
-  <h5>Output: `+ testCases[i].Output + `</h5>
-  <h5>Output thực tế: `+ result.stdout + `</h5>
+  content +=
+    `
+  <h4>Kiểm thử ` +
+    (Number(i) + 1) +
+    ` <i class="fa-solid fa-triangle-exclamation"></i></i></h4>
+  <h5>Input: ` +
+    testCases[i].Input +
+    ` </h5>
+  <h5>Output: ` +
+    testCases[i].Output +
+    `</h5>
+  <h5>Output thực tế: ` +
+    result.stdout +
+    `</h5>
                   `;
   document.getElementById("txtTestCase").innerHTML = content;
   console.log(content);
@@ -127,6 +143,49 @@ function disabledButton_Run(isDisabled) {
     document.getElementById("btnRun").value = "Chạy thử";
   }
 }
+
+function btnRun_Click() {
+  disabledButton_Run(true);
+  var param = {
+    run_spec: {
+      language_id: document.getElementById("ddlLanguages").value,
+      sourcecode: codeMirror.getValue(),
+      input: document.getElementById("txtInput").value,
+    },
+  };
+  submitCode(param);
+}
+
+function submitCode(param) {
+  axios.post(URL + "runs", param).then((response) => {
+    var result = response.data;
+    renderOutput(result);
+    disabledButton_Run(false);
+  });
+}
+
+function renderOutput(result) {
+  var output = "";
+  if (result.outcome === 11) {
+    output = result.cmpinfo;
+  } else if (result.outcome === 12) {
+    output = result.stderr;
+  } else if (result.outcome === 13) {
+    output = "Time limit exceeded";
+  } else if (result.outcome === 15) {
+    output = result.stdout;
+  } else if (result.outcome === 17) {
+    output = "Memory limit exceeded";
+  } else if (result.outcome === 19) {
+    output = "Illegal system call";
+  } else if (result.outcome === 20) {
+    output = "Internal error";
+  } else if (result.outcome === 21) {
+    output = "Server overload";
+  }
+  document.getElementById("txtOutput").innerHTML = output;
+}
+
 /* End Sample Test Cases */
 
 /* Start Test Cases */
@@ -179,11 +238,17 @@ function submitCode_TestCase(param, testCases, i) {
 function checkTestCase(testCases, result, i) {
   if (testCases[i].Output == result.stdout) {
     console.log("pass");
-    sessionStorage.setItem("Pass", (Number(sessionStorage.getItem("Pass")) + 1));
-  }
-  else {
+    sessionStorage.setItem("Pass", Number(sessionStorage.getItem("Pass")) + 1);
+  } else {
     var name = String("Fail" + j);
-    var data = String("Input: " + testCases[i].Input + " Expected Result: " + testCases[i].Output + " Execute Result: " + result.stdout);
+    var data = String(
+      "Input: " +
+        testCases[i].Input +
+        " Expected Result: " +
+        testCases[i].Output +
+        " Execute Result: " +
+        result.stdout
+    );
     sessionStorage.setItem(name, data);
     j++;
   }
@@ -235,27 +300,41 @@ function setPostQuestion() {
   var role = sessionStorage.getItem("Role");
   if (role == "Author") {
     document.getElementById("post-practice").style.visibility = "visible";
-    document.getElementById("account").innerHTML = sessionStorage.getItem("Author_FullName");
-  }
-  else {
-    document.getElementById("account").innerHTML = sessionStorage.getItem("Student_FullName");
+    document.getElementById("account").innerHTML =
+      sessionStorage.getItem("Author_FullName");
+  } else {
+    document.getElementById("account").innerHTML =
+      sessionStorage.getItem("Student_FullName");
   }
 }
 
-function setSessionsStoreSampleTestCase() {
-  axios.get(URL1 + "sampletestcases/getlist").then((response) => {
-    var sampleTestCaseList = response.data;
-    sampleTestCases = sampleTestCaseList.filter(function (sampleTestCaseList) {
-      return sampleTestCaseList.Question_id === questionID;
-    });
-    for (let i = 0; i < sampleTestCases.length; i++) {
-      var nameInput = String("SampleTestCaseInput" + i);
-      var nameOutput = String("SampleTestCaseOutput" + i);
-      sessionStorage.setItem(nameInput, sampleTestCases[i].Input);
-      sessionStorage.setItem(nameOutput, sampleTestCases[i].Output);
-    }
-  });
-}
+// function setSessionsStoreSampleTestCase() {
+//   axios.get(URL1 + "sampletestcases/getlist").then((response) => {
+//     var sampleTestCaseList = response.data;
+//     sampleTestCases = sampleTestCaseList.filter(function (sampleTestCaseList) {
+//       return sampleTestCaseList.Question_id === questionID;
+//     });
+//     var content = "";
+//     for (let i = 0; i < sampleTestCases.length; i++) {
+//       var nameInput = String("SampleTestCaseInput" + i);
+//       var nameOutput = String("SampleTestCaseOutput" + i);
+//       content +=
+//         `
+//         <h3>`+(i+1)+`: <span>` +
+//         sampleTestCases[i].Input[0] +
+//         `+` +
+//         sampleTestCases[i].Input[2] +
+//         `=` +
+//         +sampleTestCases[i].Output +
+//         `</span></h3>
+                  
+//                   `;
+//       document.getElementById("sampleTestCase").innerHTML = content;
+//       sessionStorage.setItem(nameInput, sampleTestCases[i].Input);
+//       sessionStorage.setItem(nameOutput, sampleTestCases[i].Output);
+//     }
+//   });
+// }
 
 /* End Helper Methods */
 

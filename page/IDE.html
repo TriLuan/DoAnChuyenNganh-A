@@ -92,7 +92,10 @@
     <section class="IDE-section">
       <div class="container mt-4">
         <h1>Đề bài: <span id="description"></span></h1>
-        <p id="sampleTestCase"></p>
+        <h3>Ví dụ:</h3>
+        <div id="sampleTestCase" style="float: left">
+        </div>
+        
       </div>
       <table align="center" width="90%">
         <tr>
@@ -129,34 +132,25 @@
           <td width="70%" rowspan="2" style="padding-top: 5px">
             <textarea
               id="txtSourceCode"
-              placeholder="sourceCode"
               style="width: 100%; height: 680px"
             ></textarea>
           </td>
-          <td
-            width="30%"
-            style="padding-top: 5px;"
-          >
+          <td width="30%" style="padding-top: 5px">
             <textarea
               id="txtInput"
               placeholder="Input"
-              style="width: 99%; height: 340px; background-color: #232432; color: white"
+              style="width: 99%; height: 340px"
             ></textarea>
           </td>
         </tr>
         <tr>
           <td>
-            <div
-              style="
-                width: 100%;
-                height: 340px;
-                background-color: #232432;
-                color: white;
-              "
-            >
-              <h4>Output</h4>
-              <span id="output"></span>
-            </div>
+            <textarea
+              id="txtOutput"
+              placeholder="Output"
+              style="width: 99%; height: 340px"
+              readonly="true"
+            ></textarea>
           </td>
         </tr>
       </table>
