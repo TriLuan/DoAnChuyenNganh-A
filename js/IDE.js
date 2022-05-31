@@ -103,7 +103,7 @@ function handleTrueResult(testCases, result, i) {
   <h5>Output: `+ testCases[i].Output + `</h5>
   <h5>Output thực tế: `+ result.stdout + `</h5>
                   `;
-  document.getElementById("txtTestCase").innerHTML = content;
+  document.getElementById("output").innerHTML = content;
   console.log(content);
 }
 
@@ -114,7 +114,7 @@ function handleFalseResult(testCases, result, i) {
   <h5>Output: `+ testCases[i].Output + `</h5>
   <h5>Output thực tế: `+ result.stdout + `</h5>
                   `;
-  document.getElementById("txtTestCase").innerHTML = content;
+  document.getElementById("output").innerHTML = content;
   console.log(content);
 }
 
