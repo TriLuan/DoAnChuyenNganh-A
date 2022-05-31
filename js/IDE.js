@@ -308,33 +308,31 @@ function setPostQuestion() {
   }
 }
 
-// function setSessionsStoreSampleTestCase() {
-//   axios.get(URL1 + "sampletestcases/getlist").then((response) => {
-//     var sampleTestCaseList = response.data;
-//     sampleTestCases = sampleTestCaseList.filter(function (sampleTestCaseList) {
-//       return sampleTestCaseList.Question_id === questionID;
-//     });
-//     var content = "";
-//     for (let i = 0; i < sampleTestCases.length; i++) {
-//       var nameInput = String("SampleTestCaseInput" + i);
-//       var nameOutput = String("SampleTestCaseOutput" + i);
-//       content +=
-//         `
-//         <h3>`+(i+1)+`: <span>` +
-//         sampleTestCases[i].Input[0] +
-//         `+` +
-//         sampleTestCases[i].Input[2] +
-//         `=` +
-//         +sampleTestCases[i].Output +
-//         `</span></h3>
+function setSessionsStoreSampleTestCase() {
+  axios.get(URL1 + "sampletestcases/getlist").then((response) => {
+    var sampleTestCaseList = response.data;
+    sampleTestCases = sampleTestCaseList.filter(function (sampleTestCaseList) {
+      return sampleTestCaseList.Question_id === questionID;
+    });
+    var content = "";
+    for (let i = 0; i < sampleTestCases.length; i++) {
+      var nameInput = String("SampleTestCaseInput" + i);
+      var nameOutput = String("SampleTestCaseOutput" + i);
+      content +=
+        `
+        <h3>`+(i+1)+`: <span>Input: ` +
+        sampleTestCases[i].Input +
+        ` Output: ` +
+        +sampleTestCases[i].Output +
+        `</span></h3>
                   
-//                   `;
-//       document.getElementById("sampleTestCase").innerHTML = content;
-//       sessionStorage.setItem(nameInput, sampleTestCases[i].Input);
-//       sessionStorage.setItem(nameOutput, sampleTestCases[i].Output);
-//     }
-//   });
-// }
+                  `;
+      document.getElementById("sampleTestCase").innerHTML = content;
+      sessionStorage.setItem(nameInput, sampleTestCases[i].Input);
+      sessionStorage.setItem(nameOutput, sampleTestCases[i].Output);
+    }
+  });
+}
 
 /* End Helper Methods */
 
