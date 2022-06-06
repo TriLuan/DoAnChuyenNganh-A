@@ -28,12 +28,12 @@
       referrerpolicy="no-referrer"
     />
     <!-- MY CSS  -->
-    <link rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="../css/IDE.css" />
     <script src="../js/IDE.js"></script>
   </head>
   <body onload="page_Load()">
     <!-- NAVBAR START  -->
-    <nav id="introductionNavbar" class="navbar navbar-expand-md navbar-light">
+    <!-- <nav id="introductionNavbar" class="navbar navbar-expand-md navbar-light">
       <div class="container">
         <a
           href="./home.html"
@@ -60,10 +60,10 @@
         <div class="collapse navbar-collapse">
           <ul class="navbar-nav navbar-nav--menu ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="./home.html">Trang chủ</a>
+              <a class="nav-link" href="">Trang chủ</a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="./practice.html">Luyện tập</a>
+              <a class="nav-link" href="">Luyện tập</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Thi</a>
@@ -87,74 +87,107 @@
         </ul>
         </div>
       </div>
+    </nav> -->
+
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="./home.html">Home</a></li>
+        <li class="breadcrumb-item"><a href="./practice.html">Luyện tập</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{}</li>
+      </ol>
     </nav>
-    <!-- NAVBAR END  -->
-    <section class="IDE-section">
-      <div class="container mt-4">
-        <h1>Đề bài: <span id="description"></span></h1>
-        <h3>Ví dụ:</h3>
-        <div id="sampleTestCase" style="float: left">
-        </div>
-        
+    
+    <div class="row">
+      <div class="tabs col-md-1 mb-2">
+          <ul class="nav nav-pills flex-column" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><i class="fa-solid fa-folder"></i> Mô tả</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false"><i class="fa-solid fa-clock"></i> Lịch sử nộp</a>
+            </li>
+          </ul>
       </div>
-      <table align="center" width="90%">
-        <tr>
-          <td colspan="2">
-            <h2 style="margin: 0px; text-align: center">IDE ONLINE</h2>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <hr style="margin-top: 0px; margin-bottom: 5px" />
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Please choose a language
-            <select id="ddlLanguages" />
-          </td>
-          <td align="right">
-            <input
-              type="button"
-              id="btnRun"
-              value="Chạy thử"
-              onclick="btnRun_Click()"
-            />
-            <input
-              type="button"
-              id="btnSubmit"
-              value="Nộp bài"
-              onclick="btnSubmit_Click()"
-            />
-          </td>
-        </tr>
-        <tr>
-          <td width="70%" rowspan="2" style="padding-top: 5px">
-            <textarea
-              id="txtSourceCode"
-              style="width: 100%; height: 680px"
-            ></textarea>
-          </td>
-          <td width="30%" style="padding-top: 5px">
-            <textarea
-              id="txtInput"
-              placeholder="Input"
-              style="width: 99%; height: 340px"
-            ></textarea>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <textarea
-              id="txtOutput"
-              placeholder="Output"
-              style="width: 99%; height: 340px"
-              readonly="true"
-            ></textarea>
-          </td>
-        </tr>
-      </table>
-    </section>
+      <!-- /.col-md-4 -->
+          <div class="col-md-3">
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <h2>Đề bài: <span id="description"></span></h1>
+            <h3>Ví dụ:</h3>
+          </div>
+          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <h2>Lịch sử nộp</h2>
+          </div>
+        </div>
+      </div>
+
+        <section class="IDE-section col-md-8">
+          <div class="container mt-4">
+           
+            <div id="sampleTestCase" style="float: left">
+            </div>
+            
+          </div>
+          <table align="center" width="90%">
+            <tr>
+              <td colspan="2">
+                <h2 style="margin: 0px; text-align: center">IDE ONLINE</h2>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <hr style="margin-top: 0px; margin-bottom: 5px" />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Please choose a language
+                <select id="ddlLanguages" />
+              </td>
+              <td align="right">
+                <input
+                  type="button"
+                  id="btnRun"
+                  value="Chạy thử"
+                  onclick="btnRun_Click()"
+                />
+                <input
+                  type="button"
+                  id="btnSubmit"
+                  value="Nộp bài"
+                  onclick="btnSubmit_Click()"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td width="70%" rowspan="2" style="padding-top: 5px">
+                <textarea
+                  id="txtSourceCode"
+                  style="width: 100%; height: 680px"
+                ></textarea>
+              </td>
+              <td width="30%" style="padding-top: 5px">
+                <textarea
+                  id="txtInput"
+                  placeholder="Input"
+                  style="width: 99%; height: 340px"
+                ></textarea>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <textarea
+                  id="txtOutput"
+                  placeholder="Output"
+                  style="width: 99%; height: 340px"
+                  readonly="true"
+                ></textarea>
+              </td>
+            </tr>
+          </table>
+        </section>
+      </div>
+    <!-- NAVBAR END  -->
     <script
       src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"

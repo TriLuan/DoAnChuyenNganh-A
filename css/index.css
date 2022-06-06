@@ -159,11 +159,10 @@ html{
     color: red;
     font-weight: bold;
 }
-/* IDE */
-.IDE-section{
-    padding: 3rem 15px;
-    background-color: #f1f1f1;
-}
+
+
+
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 * {
