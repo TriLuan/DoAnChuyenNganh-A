@@ -18,16 +18,15 @@ function getLanguages() {
 }
 
 function clearTestCase() {
-  document.getElementById("txtTestCase").innerHTML = "";
+  document.getElementById("txtOutput").innerHTML = "";
 }
 function clearConsole() {
-  document.getElementById("output").innerHTML = "";
+  document.getElementById("txtOutput").innerHTML = "";
 }
 
 var getQuestion = function () {
   if (sessionStorage.description) {
-    document.getElementById("description").innerHTML =
-      sessionStorage.getItem("description");
+    document.getElementById("description").innerHTML = sessionStorage.getItem("description");
     questionID = Number(sessionStorage.getItem("ID"));
   } else {
     console.log("sessionStorage.description = null");
@@ -36,12 +35,13 @@ var getQuestion = function () {
 /* End Business Methods */
 
 /* Start Sample Test Cases */
-// function btnRun_Click() {
-//   disabledButton_Run(true);
-//   content = "";
-//   runTestingSampleTestCase();
-//   clearConsole();
-// }
+function btnRun_Click() {
+  disabledButton_Run(true);
+  content = "";
+  clearConsole();
+  clearTestCase();
+  runTestingSampleTestCase();
+}
 
 var runTestingSampleTestCase = function () {
   axios.get(URL1 + "sampletestcases/getlist").then((response) => {
@@ -110,7 +110,7 @@ function handleTrueResult(testCases, result, i) {
     result.stdout +
     `</h5>
                   `;
-  document.getElementById("output").innerHTML = content;
+  document.getElementById("txtOutput").innerHTML = content;
   console.log(content);
 }
 
@@ -119,7 +119,7 @@ function handleFalseResult(testCases, result, i) {
     `
   <h4>Kiểm thử ` +
     (Number(i) + 1) +
-    ` <i class="fa-solid fa-triangle-exclamation"></i></i></h4>
+    ` <i class="fa-solid fa-triangle-exclamation"></i></h4>
   <h5>Input: ` +
     testCases[i].Input +
     ` </h5>
@@ -130,7 +130,7 @@ function handleFalseResult(testCases, result, i) {
     result.stdout +
     `</h5>
                   `;
-  document.getElementById("output").innerHTML = content;
+  document.getElementById("txtOutput").innerHTML = content;
   console.log(content);
 }
 
@@ -142,48 +142,6 @@ function disabledButton_Run(isDisabled) {
     document.getElementById("btnRun").disabled = false;
     document.getElementById("btnRun").value = "Chạy thử";
   }
-}
-
-function btnRun_Click() {
-  disabledButton_Run(true);
-  var param = {
-    run_spec: {
-      language_id: document.getElementById("ddlLanguages").value,
-      sourcecode: codeMirror.getValue(),
-      input: document.getElementById("txtInput").value,
-    },
-  };
-  submitCode(param);
-}
-
-function submitCode(param) {
-  axios.post(URL + "runs", param).then((response) => {
-    var result = response.data;
-    renderOutput(result);
-    disabledButton_Run(false);
-  });
-}
-
-function renderOutput(result) {
-  var output = "";
-  if (result.outcome === 11) {
-    output = result.cmpinfo;
-  } else if (result.outcome === 12) {
-    output = result.stderr;
-  } else if (result.outcome === 13) {
-    output = "Time limit exceeded";
-  } else if (result.outcome === 15) {
-    output = result.stdout;
-  } else if (result.outcome === 17) {
-    output = "Memory limit exceeded";
-  } else if (result.outcome === 19) {
-    output = "Illegal system call";
-  } else if (result.outcome === 20) {
-    output = "Internal error";
-  } else if (result.outcome === 21) {
-    output = "Server overload";
-  }
-  document.getElementById("txtOutput").innerHTML = output;
 }
 
 /* End Sample Test Cases */
@@ -208,6 +166,7 @@ function testingProcess(testCases) {
   sessionStorage.setItem("Pass", 0);
   sessionStorage.setItem("Total_TestCases", testCases.length);
   sessionStorage.setItem("SourceCode", codeMirror.getValue());
+  sessionStorage.setItem("CodeLanguage", document.getElementById("ddlLanguages").value);
   for (let i = 0; i < testCases.length; i++) {
     var param = {
       run_spec: {
@@ -243,11 +202,11 @@ function checkTestCase(testCases, result, i) {
     var name = String("Fail" + j);
     var data = String(
       "Input: " +
-        testCases[i].Input +
-        " Expected Result: " +
-        testCases[i].Output +
-        " Execute Result: " +
-        result.stdout
+      testCases[i].Input +
+      " Expected Result: " +
+      testCases[i].Output +
+      " Execute Result: " +
+      result.stdout
     );
     sessionStorage.setItem(name, data);
     j++;
@@ -320,7 +279,7 @@ function setSessionsStoreSampleTestCase() {
       var nameOutput = String("SampleTestCaseOutput" + i);
       content +=
         `
-        <h3>`+(i+1)+`: <span>Input: ` +
+        <h3>`+ (i + 1) + `: <span>Input: ` +
         sampleTestCases[i].Input +
         ` Output: ` +
         +sampleTestCases[i].Output +

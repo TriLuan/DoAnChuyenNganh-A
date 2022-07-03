@@ -55,6 +55,7 @@ function addHistoryResultProcess() {
             Pass: pass,
             Testcase_fail: testCaseFail,
             Source_code: sourceCode,
+            Languages: sessionStorage.getItem("CodeLanguage"),
             Submit_date: date,
         };
         console.log(param);
